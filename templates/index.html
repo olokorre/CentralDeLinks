@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel = "stylesheet" type = "text/css" href = "css/style.css" />
+        <script src = "js/jquery-3.4.1.js"></script>
+        <script src = "js/script.js"></script>
+        <title>Centra de links</title>
+    </head>
+    <body style = "display: none;">
+        <div align = "center">
+            <h1>Central de links: Bom Dia!</h1>
+            <div id = "mostrar">
+                <img class = "menu" onclick = "MostrarLinks()" src = "image/cacorro.jpeg" />
+                <img class = "menu" onclick = "AddLinks()" src = "image/envia.jpg" />
+                <table style = "display: none;">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Link</th>
+                    </tr>
+                    {% for i in range(tam) %}
+                    <tr>
+                        <td> {{nome[i]}} </td>
+                        <td> {{link[i]}} </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <div id = "import" style = "display: none;">
+                    <h2>Informe o link aqui: </h2>
+                    <p>Nome</p>
+                    <input id = "nome" />
+                    <p>Link</p>
+                    <input id = "link" /><br />
+                    <button style = "margin-top: 30px;" onclick = "Enviar()">Enviar</button>
+                </div>
+            </div>
+            <button style = "display: none; margin-top: 30px;" id = "Voltar" onclick = "Voltar()">Voltar</button>
+        </div>
+    </body>
+</html>

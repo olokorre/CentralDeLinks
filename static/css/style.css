@@ -1,0 +1,11 @@
+* { font-family: sans-serif; }
+
+tr:nth-child(even) { background: #CCC; }
+tr:nth-child(odd) { background: #FFF }
+
+.menu {
+    width: 152px;
+    height: 111px;
+}
+
+#mostrar { margin-top: 60px; }
