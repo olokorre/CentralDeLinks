@@ -1,11 +1,29 @@
-* { font-family: sans-serif; }
+* { font-family: Arial, Helvetica, sans-serif; }
 
-tr:nth-child(even) { background: #CCC; }
-tr:nth-child(odd) { background: #FFF }
+/* tr:nth-child(even) { background: #CCC; }
+tr:nth-child(odd) { background: #FFF } */
+
+th, td { padding: 15px; }
+
+.transicao { -webkit-transition: 1s; }
 
 .menu {
-    width: 152px;
-    height: 111px;
+	width: 202px;
+	height: 151px;
+	border: 5px solid #CCC;
 }
 
+.menu:hover { border: 5px solid black; }
+
 #mostrar { margin-top: 60px; }
+
+#barra { 
+	border: solid 5px;
+	display: none;
+	background-color: black;
+}
+
+#titulo {
+	color:white;
+	text-align: center;
+}
