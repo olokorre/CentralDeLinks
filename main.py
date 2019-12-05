@@ -1,13 +1,13 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, request, redirect
 import mysql.connector
 
 app = Flask(__name__)
 
-mydb = mysql.connector.connect(user="olokorre", passwd="Linux@290")
+mydb = mysql.connector.connect(user = "olokorre", passwd = "Linux@290")
 mycursor = mydb.cursor()
 mycursor.execute("use Links")
 
-@app.route('/')
+@app.route('/', methods = ('GET', 'POST'))
 def index():
 	nome = []
 	link = []
@@ -15,6 +15,12 @@ def index():
 	for i in mycursor:
 		nome.append(i[1])
 		link.append(i[2])
+	if request.method == 'POST':
+		n = request.form['nome']
+		l = request.form['link']
+		mycursor.execute('insert into links (nome, link) value ("%s", "%s")' % (n, l))
+		mydb.commit()
+		return redirect('/')
 	return render_template('index.html', nome = nome, link = link, tam = len(nome))
 
 @app.route('/js/<path:path>')

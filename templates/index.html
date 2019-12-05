@@ -30,14 +30,16 @@
 					</tr>
 					{% endfor %}
 				</table>
-				<div id = "import" style = "display: none;">
-					<h2>Informe o link aqui: </h2>
-					<p>Nome</p>
-					<input id = "nome" />
-					<p>Link</p>
-					<input id = "link" /><br />
-					<button style = "margin-top: 30px;" onclick = "Enviar()">Enviar</button>
-				</div>
+				<form method = "POST">
+					<div id = "import" style = "display: none;">
+						<h2>Informe o link aqui: </h2>
+						<p>Nome</p>
+						<input required name = "nome" />
+						<p>Link</p>
+						<input required name = "link" /><br />
+						<input type = "submit" value = "Enviar" style = "margin-top: 30px;" />
+					</div>
+				</form>
 			</div>
 			<button style = "display: none; margin-top: 30px;" id = "Voltar" onclick = "Voltar()">Voltar</button>
 		</div>
