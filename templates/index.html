@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang = "pt-br">
 	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta charset = "uft-8" />
 		<link rel = "stylesheet" type = "text/css" href = "css/style.css" />
 		<script src = "js/jquery-3.4.1.js"></script>
@@ -10,33 +10,33 @@
 	</head>
 	<body>
 		<div id = "barra">
-			<h1 id = "titulo">CENTRAL DE LINKS: Bom Dia!</h1>
+			<h1 id = "titulo">Central de Links: {{dar}} </h1>
 		</div>
 		<div align = "center">
 			<div style = "display: none;" id = "mostrar">
 				<img class = "menu" onclick = "MostrarLinks()" src = "image/cacorro.jpeg" />
 				<img class = "menu" onclick = "AddLinks()" src = "image/envia.jpg" />
-				<table style = "display: none;">
-					<tr>
-						<th></th>
-						<th>Nome</th>
-						<th>Link</th>
-					</tr>
-					{% for i in range(tam) %}
-					<tr>
-						<td> {{i + 1}} </td>
-						<td> {{nome[i]}} </td>
-						<td> {{link[i]}} </td>
-					</tr>
-					{% endfor %}
-				</table>
+				<div class = "tabela" style = "display: none;">
+					<table>
+						<tr>
+							<th></th>
+							<th>Nome</th>
+							<th>Link</th>
+						</tr>
+						{% for i in range(tam) %}
+						<tr>
+							<td> {{i + 1}} </td>
+							<td> {{nome[i]}} </td>
+							<td> {{link[i]}} </td>
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
 				<form method = "POST">
 					<div id = "import" style = "display: none;">
 						<h2>Informe o link aqui: </h2>
-						<p>Nome</p>
-						<input required name = "nome" />
-						<p>Link</p>
-						<input required name = "link" /><br />
+						<input required value = "Nome" id = 'nome' onclick = "Limpar('nome')" name = "nome" />
+						<input required value = "Link" id = 'link' onclick = "Limpar('link')" name = "link" /> <br />
 						<input type = "submit" value = "Enviar" style = "margin-top: 30px;" />
 					</div>
 				</form>
