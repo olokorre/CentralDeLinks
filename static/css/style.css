@@ -2,6 +2,10 @@
 	font-family: Arial, Helvetica, sans-serif;
 }
 
+a {
+	color: black;
+}
+
 .menu, #barra, tr {
 	border-radius: 10px;
 }
