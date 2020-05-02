@@ -33,15 +33,15 @@ BD = BancoDeDados("olokorre", "Linux@290")
 def index():
 	nome = []
 	link = []
-	linksDis = BD.links()
-	for i in linksDis: # agrupar os nomes e os links em suas respectivas listas
-		nome.append(i[1])
-		link.append(i[2])
+	if request.method == 'GET':
+		linksDis = BD.links()
+		for i in linksDis: # agrupar os nomes e os links em suas respectivas listas
+			nome.append(i[1])
+			link.append(i[2])
+		return render_template('index.html', dar = saudacao.dar(), nome = nome, link = link, tam = len(nome)) # renderiza e entrega o templete ao cliente
 	if request.method == 'POST': # encarregado de receber os novos links
 		BD.enviar(request.form['nome'], request.form['link'])
 		return redirect('/')
-	
-	return render_template('index.html', dar = saudacao.dar(), nome = nome, link = link, tam = len(nome)) # renderiza e entrega o templete ao cliente
 
 # rotas auxiliares
 @app.route('/js/<path:path>')
