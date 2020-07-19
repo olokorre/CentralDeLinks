@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" href="image/Atendimento.png" type="image/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src = "js/jquery-3.4.1.js"></script>
+        <link rel = "stylesheet" type = "text/css" href = "css/style-login.css" />
+        <link rel = "stylesheet" type = "text/css" href = "css/style.css" />
+		<script src = "js/script.js"></script>
+        <title>Faça login</title>
+    </head>
+    <body>
+        <div id = "barra">
+			<h1 id = "titulo">Central de Links: {{dar}} </h1>
+		</div>
+        <form style="display: none;" id='mostrar' method = "POST">
+            <div align = "center">
+                <h2>Entre em sua conta: </h2>
+                <input required value = "Email ou Nick" id = 'email' onclick = "Limpar('email')" name = "email" /> <br />
+                <input required value = "Senha" id = 'senha' onclick = "Limpar('senha')" name = "senha" /> <br />
+                <input type = "submit" value = "Entrar" style = "margin-top: 20px;" />
+            </div>
+        </form>
+    </body>
+</html>

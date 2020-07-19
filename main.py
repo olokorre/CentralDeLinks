@@ -28,6 +28,7 @@ class BancoDeDados(object):
 
 saudacao = Saudacao()
 BD = BancoDeDados("olokorre", "Linux@290")
+user = "Entrar"
 
 @app.route('/', methods = ('GET', 'POST')) # rota principal
 def index():
@@ -38,10 +39,14 @@ def index():
 		for i in linksDis: # agrupar os nomes e os links em suas respectivas listas
 			nome.append(i[1])
 			link.append(i[2])
-		return render_template('index.html', dar = saudacao.dar(), nome = nome, link = link, tam = len(nome)) # renderiza e entrega o templete ao cliente
+		return render_template('index.html', dar = saudacao.dar(), nome = nome, link = link, tam = len(nome), user = user) # renderiza e entrega o templete ao cliente
 	if request.method == 'POST': # encarregado de receber os novos links
 		BD.enviar(request.form['nome'], request.form['link'])
 		return redirect('/')
+
+@app.route('/user_mananger')
+def user_mananger():
+	return render_template('login.html', dar = saudacao.dar())
 
 # rotas auxiliares
 @app.route('/js/<path:path>')

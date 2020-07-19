@@ -11,6 +11,7 @@
 	</head>
 	<body>
 		<div id = "barra">
+			<a href='/user_mananger'><p id='user_button'>{{user}}</p></a>
 			<h1 id = "titulo">Central de Links: {{dar}} </h1>
 		</div>
 		<div align = "center">
@@ -19,8 +20,8 @@
 				<img class = "menu" onclick = "AddLinks()" src = "image/envia.jpg" />
 				<div class = "tabela" style = "display: none;">
 					<table>
-						<tr>
-							<th></th>
+						<tr style='background-color: rgb(182, 182, 182);'>
+							<th>ID</th>
 							<th>Nome</th>
 							<th>Link</th>
 						</tr>
@@ -28,7 +29,7 @@
 						<tr>
 							<td> {{i + 1}} </td>
 							<td> {{nome[i]}} </td>
-							<td><a href = "{{link[i]}}"> {{link[i]}} </a></td>
+							<td><a target="blank_" href="{{link[i]}}"> {{link[i]}} </a></td>
 						</tr>
 						{% endfor %}
 					</table>
