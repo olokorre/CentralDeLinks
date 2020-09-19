@@ -26,8 +26,16 @@ class BancoDeDados(object):
 		self.mycursor.execute('insert into links (nome, link) value ("%s", "%s")' % (nome, link))
 		self.mydb.commit()
 
+def user_db():
+	user = open('user.txt', 'r')
+	return_user = user.readlines()
+	user.close()
+	print(return_user)
+	return return_user
+
+user = user_db()
 saudacao = Saudacao()
-BD = BancoDeDados("olokorre", "Linux@290")
+BD = BancoDeDados(user[0], user[1])
 user = "Entrar"
 
 @app.route('/', methods = ('GET', 'POST')) # rota principal
