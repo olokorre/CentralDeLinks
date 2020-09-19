@@ -50,6 +50,7 @@ def user_db():
 user = user_db()
 saudacao = Saudacao()
 BD = BancoDeDados(user[0], user[1])
+user = "Entrar"
 
 @app.route('/', methods = ('GET', 'POST')) # rota principal
 def index():
@@ -61,12 +62,11 @@ def index():
 		for i in linksDis: # agrupar os nomes e os links em suas respectivas listas
 			nome.append(i[1])
 			link.append(i[2])
-		return render_template('index.html', dar = saudacao.dar(), nome = nome, link = link, tam = len(nome)) # renderiza e entrega o templete ao cliente
+		return render_template('index.html', dar = saudacao.dar(), nome = nome, link = link, tam = len(nome), user = user) # renderiza e entrega o templete ao cliente
 	if request.method == 'POST': # encarregado de receber os novos links
 		BD.enviar(user, request.form['nome'], request.form['link'])
 		return redirect('/')
 
-<<<<<<< HEAD
 @app.route('/user_mananger', methods = ('GET', 'POST'))
 def user_mananger():
 	global user
@@ -78,8 +78,6 @@ def user_mananger():
 		return redirect('/')
 	return '404'
 
-=======
->>>>>>> d17244f9e894c32c60348cc9dc3ec8055f230933
 # rotas auxiliares
 @app.route('/js/<path:path>')
 def send_js(path):
