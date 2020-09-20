@@ -21,7 +21,6 @@ class BancoDeDados(object):
 	def basic_request(self, user):
 		self.mycursor.execute('select * from users')
 		for i in self.mycursor:
-			print(i[0], user)
 			if user == i[0]: table = i[1]
 		return table
 
