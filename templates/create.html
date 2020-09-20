@@ -8,7 +8,7 @@
         <link rel = "stylesheet" type = "text/css" href = "css/style-login.css" />
         <link rel = "stylesheet" type = "text/css" href = "css/style.css" />
 		<script src = "js/script.js"></script>
-        <title>Faça login</title>
+        <title>Crie uma conta</title>
     </head>
     <body>
         <div id = "barra">
@@ -16,12 +16,12 @@
         </div>
         <div style="display: none;" id='mostrar' align = "center">
             <form method = "POST">
-                <h2>Entre em sua conta: </h2>
+                <h2>Escolha um nome de Usuario para a sua conta:</h2>
                 <input required value = "Nome de Usuario" id = 'user' onclick = "Limpar('user')" name = "user" /> <br />
                 <!-- <input required value = "Senha" id = 'senha' onclick = "Limpar('senha')" name = "senha" /> <br /> -->
-                <input type = "submit" value = "Entrar" style = "margin-top: 20px;" />
+                <input type = "submit" value = "Registrar-se" style = "margin-top: 20px;" />
             </form>
-            <a href="/create"><button style='margin-top:10px'>Registrar-se</button></a>
+            <a href="/login"><button style='margin-top:10px'>Entrar</button></a>
         </div>
     </body>
 </html>

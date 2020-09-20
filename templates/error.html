@@ -15,13 +15,8 @@
 			<h1 id = "titulo">Central de links, {{dar}} </h1>
         </div>
         <div style="display: none;" id='mostrar' align = "center">
-            <form method = "POST">
-                <h2>Entre em sua conta: </h2>
-                <input required value = "Nome de Usuario" id = 'user' onclick = "Limpar('user')" name = "user" /> <br />
-                <!-- <input required value = "Senha" id = 'senha' onclick = "Limpar('senha')" name = "senha" /> <br /> -->
-                <input type = "submit" value = "Entrar" style = "margin-top: 20px;" />
-            </form>
-            <a href="/create"><button style='margin-top:10px'>Registrar-se</button></a>
+            <p>{{erro}} :/</p><br />
+            <a href="{{url}}"><button style='margin-top:10px'>{{action}}</button></a>
         </div>
     </body>
 </html>
