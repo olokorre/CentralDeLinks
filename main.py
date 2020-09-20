@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, request, redirect # dependencias do Flask
+from flask import Flask, render_template, send_from_directory, request, redirect, make_response
 import mysql.connector # dependencias do MySQL
 from datetime import datetime # dependencias do datetime
 
@@ -43,8 +43,13 @@ class BancoDeDados(object):
 
 	def request(self, user):
 		table = self.basic_request(user)
+		nome = []
+		link = []
 		self.mycursor.execute('select * from %s' % (table))
-		return self.mycursor
+		for i in self.mycursor:
+			nome.append(i[1])
+			link.append(i[2])
+		return [nome, link]
 
 	def send_data(self, user, nome, link):
 		table = self.basic_request(user)
@@ -64,19 +69,15 @@ user = "Entrar"
 
 @app.route('/', methods = ('GET', 'POST')) # rota principal
 def index():
-	nome = []
-	link = []
 	if request.method == 'GET':
-		if user == "Entrar": return redirect('/login')
-		linksDis = BD.request(user)
-		for i in linksDis: # agrupar os nomes e os links em suas respectivas listas
-			nome.append(i[1])
-			link.append(i[2])
-		return render_template('index.html', 
+		user = request.cookies.get('userID')
+		if user == None or user == 'None': return redirect('/login')
+		request_db = BD.request(user)
+		return render_template('index.html',
 			dar = saudacao.dar(), 
-			nome = nome, 
-			link = link, 
-			tam = len(nome), 
+			nome = request_db[0],
+			link = request_db[1],
+			tam = len(request_db[0]),
 			user = user) # renderiza e entrega o templete ao cliente
 	if request.method == 'POST': # encarregado de receber os novos links
 		BD.send_data(user, request.form['nome'], request.form['link'])
@@ -84,30 +85,32 @@ def index():
 
 @app.route('/login', methods = ('GET', 'POST'))
 def login():
-	global user
-	if request.method == 'GET': return render_template('login.html', dar = saudacao.dar())
+	if request.method == 'GET':
+		resp = make_response(render_template('login.html', dar = saudacao.dar()))
+		resp.set_cookie('userID', 'None')
+		return resp
 	elif request.method == 'POST':
 		nick = request.form['user']
-		if BD.user_check(nick): user = nick
+		if BD.user_check(nick):
+			resp = make_response(redirect('/'))
+			resp.set_cookie('userID', nick)
+			return resp
 		else:
-			user = "Entrar"
 			return render_template('error.html', 
 				erro = 'Usuario não existe...', 
 				url = '/create', 
 				action = 'Registrar-se', 
 				dar = saudacao.dar())
-		return redirect('/')
-	return redirect('/create')
 
 @app.route('/create', methods = ('GET', 'POST'))
 def create():
-	global user
 	if request.method == 'GET': return render_template('create.html', dar = saudacao.dar())
 	elif request.method == 'POST':
 		nick = request.form['user']
-		if BD.create_user(nick): 
-			user = nick
-			return redirect('/')
+		if BD.create_user(nick):
+			resp = make_response(redirect('/'))
+			resp.set_cookie('userID', nick)
+			return resp
 		else: return render_template('error.html', 
 			erro = 'Esse usuario já existe...', 
 			url = '/login', 
