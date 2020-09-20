@@ -3,7 +3,7 @@ import mysql.connector
 user = input("Qual o nome do usuario MySQL?\n$ ")
 passwd = input("Qual a senha desse usuario?\n$ ")
 
-mydb = mysql.connector.connect(user = user, passwd = passwd) # conecção com o banco de dados
+mydb = mysql.connector.connect(user = user, passwd = passwd)
 mycursor = mydb.cursor()
 mycursor.execute("create database Links")
 mycursor.execute("use Links")
