@@ -10,5 +10,12 @@ Após instalar as dependências e o MySQL, execute o arquivo configure_db.py. El
  
 ## Objetivo e funcionalidade:
 O principal objetivo dele é aprender mais sobre o básico de uma aplicação web usando o framework flask. A ideia do projeto é criar um local onde dê para armazenar os sites favoritos de múltiplos usuários em um só lugar, sendo que nenhum dos usuários tem acesso aos 'links' dos outros.
+
 Já com a aplicação rodando, a primeira tela que você verá será a de login. Como o banco de dados dele estará zerado na primeira vez que ele for acessado, o usuario precisa criar um nome de usuário, clicando em 'registrar-se'. Escolhendo um 'nick', o servidor armazenará ele em seu banco de dados e criará uma tabela especifica para esse usuario recem criado, e redirecionará para a parte principal da aplicação. Nela haverá 2 botões: o primeiro leva a uma tabela que mostra os 'links' já armazenado e o segundo leva a uma tela para inserir 'links' no sistema. Para inserir, basta informar um 'nome' (algo que te faça lembrar do que se trata, pode ser o nome do site ou alguma frase que remeta ao conteúdo dele) e um 'link', sendo este a URL do site que deseja salvar. Feito isso, a aplicação enviará as informações para a tabela referente ao usuario logado no momento e recarregará a página. As alterações estarão visíveis no primeiro botão. Para encerrar a sessão do usuário atual, basta clicar no seu nome de usuário, no canto superior direito da tela.
+
+## Proximas implementações:
+- [X] Usuarios;
+- [x] Cookies;
+- [ ] Senhas;
+
 Acredito ter resumido o projeto, espero que goste e abuse do meu sistema, pode quebrar-lo a vontade :)
