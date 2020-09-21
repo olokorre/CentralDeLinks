@@ -4,7 +4,7 @@ Requisitos:
  
 Instalação:
    Após instalar as dependências e o MySQL, execute o arquivo configure_db.py. Ele irá criar o banco de dados necessário para a execução do main.py. Esse arquivo pede acesso ao seu usuário e senha do MySQL. Com esses dados criará um arquivo user.txt e os guardará lá. Esse arquivo serve para facilitar o acesso ao db.
-   Feito isso, você pode executar o main.py. Ele vai hospedar um site no seu localhost na porta 5000. Para acessar, basta abrir o navegador e inserir na URL: localhost:5000. Você pode acessar por um dispositivo externo também, basta colocar na URL: [IP da maquina que esta rodando o main.py]:5000
+   Feito isso, você pode executar o main.py,que hospedará um site no seu localhost na porta 5000. Para acessar, basta abrir o navegador e inserir na URL: localhost:5000. Você pode acessar por um dispositivo externo também, basta colocar na URL: [IP da maquina que esta rodando o main.py]:5000
  
 Objetivo e funcionalidade:
    O principal objetivo dele é aprender mais sobre o básico de uma aplicação web usando o framework flask. Ele serve basicamente para você armazenar os favoritos de múltiplos usuários em um lugar só, sendo que nenhum dos usuários tem acesso aos 'links' dos outros.
