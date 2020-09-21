@@ -1,4 +1,8 @@
 # Central de Links
+
+![screenshot](/static/image/screenshot.png)
+Format: ![Alt Text](url)
+
 ## Requisitos:
 * python 3.6 ou superior com as dependências: 
    * flaks (1.1.1);
