@@ -65,12 +65,11 @@ def user_db():
 user = user_db()
 saudacao = Saudacao()
 BD = BancoDeDados(user[0], user[1])
-user = "Entrar"
 
 @app.route('/', methods = ('GET', 'POST')) # rota principal
 def index():
+	user = request.cookies.get('userID')
 	if request.method == 'GET':
-		user = request.cookies.get('userID')
 		if user == None or user == 'None': return redirect('/login')
 		request_db = BD.request(user)
 		return render_template('index.html',
