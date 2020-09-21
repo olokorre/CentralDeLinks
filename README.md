@@ -1,4 +1,3 @@
-#Central de links
 Requisitos:
    python 3.6 ou superior com as dependências: flaks (1.1.1) e mysql-connector (2.2.9)
    MySQL 5.7 ou superior
