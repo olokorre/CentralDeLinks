@@ -7,7 +7,7 @@
         <script src = "js/jquery-3.4.1.js"></script>
         <link rel = "stylesheet" type = "text/css" href = "css/style-login.css" />
         <link rel = "stylesheet" type = "text/css" href = "css/style.css" />
-		<script src = "js/script.js"></script>
+        <script src="js/script.js"></script>
         <title>Faça login</title>
     </head>
     <body>
@@ -15,11 +15,11 @@
 			<h1 id = "titulo">Central de links, {{dar}} </h1>
         </div>
         <div style="display: none;" id='mostrar' align = "center">
-            <form method = "POST">
+            <form id='form1' method = "POST">
                 <h2>Entre em sua conta: </h2>
                 <input required value = "Nome de Usuario" id = 'user' onclick = "Limpar('user')" name = "user" /> <br />
-                <!-- <input required value = "Senha" id = 'senha' onclick = "Limpar('senha')" name = "senha" /> <br /> -->
-                <input type = "submit" value = "Entrar" style = "margin-top: 20px;" />
+                <input required type='password' value = "Senha" id = 'senha' onclick = "Limpar('senha')" name = "senha" /> <br />
+                <button type='submit' style='margin-top: 20px;'>Entrar</button>
             </form>
             <a href="/create"><button style='margin-top:10px'>Registrar-se</button></a>
         </div>

@@ -30,7 +30,4 @@ function Voltar() { // executa a animação de voltar a pagina inicial
 	setTimeout(() => { $(".menu").addClass("transicao"); }, 1500);
 }
 
-function Limpar(id) { // limpa as caixas de texto
-	document.getElementById(id).value = "";
-	// alert("Maluco");
-}
+function Limpar(id) { document.getElementById(id).value = ""; }

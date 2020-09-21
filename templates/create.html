@@ -15,11 +15,11 @@
 			<h1 id = "titulo">Central de links, {{dar}} </h1>
         </div>
         <div style="display: none;" id='mostrar' align = "center">
-            <form method = "POST">
+            <form id='form1' method = "POST">
                 <h2>Escolha um nome de Usuario para a sua conta:</h2>
                 <input required value = "Nome de Usuario" id = 'user' onclick = "Limpar('user')" name = "user" /> <br />
-                <!-- <input required value = "Senha" id = 'senha' onclick = "Limpar('senha')" name = "senha" /> <br /> -->
-                <input type = "submit" value = "Registrar-se" style = "margin-top: 20px;" />
+                <input required type='password' value = "Senha" id = 'senha' onclick = "Limpar('senha')" name = "senha" /> <br />
+                <button type='submit' style = "margin-top: 20px;">Registre-se</button>
             </form>
             <a href="/login"><button style='margin-top:10px'>Entrar</button></a>
         </div>

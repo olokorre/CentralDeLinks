@@ -7,7 +7,7 @@ mydb = mysql.connector.connect(user = user, passwd = passwd)
 mycursor = mydb.cursor()
 mycursor.execute("create database Links")
 mycursor.execute("use Links")
-mycursor.execute("create table users (nick varchar(255) primary key, tables varchar(255))")
+mycursor.execute("create table users (nick varchar(255) primary key, passwd varchar(255), tables varchar(255))")
 
 file_user = open('user.txt', 'w')
 file_user.write(user + '\n' + passwd)
