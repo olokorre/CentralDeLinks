@@ -9,7 +9,7 @@
 * MySQL 5.7 ou superior
  
 ## Instalação:
-Após instalar as dependências e o MySQL, execute o arquivo configure_db.py. Ele irá criar o banco de dados necessário para a execução do main.py. Esse arquivo pede acesso ao seu usuário e senha do MySQL. Com esses dados criará um arquivo user.txt e os guardará lá. Esse arquivo serve para facilitar o acesso ao db. Feito isso, você pode executar o main.py, que hospedará um site no seu localhost na porta 5000. Para acessar, basta abrir o navegador e inserir na URL: localhost:5000. Também é possivel acessar por um dispositivo externo, basta inserir na URL: [IP da maquina que esta rodando o main.py]:5000
+Após instalar as dependências e o MySQL, execute o arquivo db.py. Ele irá criar o banco de dados necessário para a execução do main.py. Esse arquivo pede acesso ao seu usuário e senha do MySQL. Com esses dados criará um arquivo user.txt e os guardará lá. Esse arquivo serve para facilitar o acesso ao db. Feito isso, você pode executar o main.py, que hospedará um site no seu localhost na porta 5000. Para acessar, basta abrir o navegador e inserir na URL: localhost:5000. Também é possivel acessar por um dispositivo externo, basta inserir na URL: [IP da maquina que esta rodando o main.py]:5000
  
 ## Objetivo e funcionalidade:
 O principal objetivo dele é aprender mais sobre o básico de uma aplicação web usando o framework flask. A ideia do projeto é criar um local onde dê para armazenar os sites favoritos de múltiplos usuários em um só lugar, sendo que nenhum dos usuários tem acesso aos 'links' dos outros.
@@ -20,7 +20,7 @@ Já com a aplicação rodando, a primeira tela que você verá será a de login.
 - [X] Usuarios;
 - [x] Cookies;
 - [x] Senhas;
-- [ ] Organizar;
+- [x] Organizar;
 - [ ] Apresentar;
 
 Acredito ter resumido o projeto, espero que goste e abuse do meu sistema, pode quebrar-lo a vontade :)
