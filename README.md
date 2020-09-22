@@ -20,5 +20,7 @@ Já com a aplicação rodando, a primeira tela que você verá será a de login.
 - [X] Usuarios;
 - [x] Cookies;
 - [x] Senhas;
+- [ ] Organizar;
+- [ ] Apresentar;
 
 Acredito ter resumido o projeto, espero que goste e abuse do meu sistema, pode quebrar-lo a vontade :)
