@@ -58,8 +58,8 @@ def login():
 		else:
 			return render_template(
 				'error.html', 
-				erro = 'Usuario não existe...', 
-				url = '/create', 
+				erro = 'Usuario não existe ou senha incorreta...', 
+				url = '/create',
 				action = 'Registrar-se', 
 				dar = functions.dar()
 			)
