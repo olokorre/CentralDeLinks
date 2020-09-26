@@ -15,24 +15,30 @@ def index():
 		if user == None or user == 'None': return redirect('/login')
 		request_db = BD.request(user, passwd)
 		if request_db == False:
-			return render_template('error.html',
-			erro = 'Senha inválida!',
-			url = '/login',
-			action = 'Voltar',
-			dar = functions.dar())
-		return render_template('index.html',
+			return render_template(
+				'error.html',
+				erro = 'Senha inválida!',
+				url = '/login',
+				action = 'Voltar',
+				dar = functions.dar()
+			)
+		return render_template(
+			'index.html',
 			dar = functions.dar(), 
 			nome = request_db[0],
 			link = request_db[1],
 			tam = len(request_db[0]),
-			user = user)
+			user = user
+		)
 	if request.method == 'POST':
 		if BD.send_data(user, passwd, request.form['nome'], request.form['link']): return redirect('/')
-		return render_template('error.html',
+		return render_template(
+			'error.html',
 			erro = 'Senha inválida!',
 			url = '/login',
 			action = 'Voltar',
-			dar = functions.dar())
+			dar = functions.dar()
+		)
 
 @app.route('/login', methods = ('GET', 'POST'))
 def login():
@@ -50,11 +56,13 @@ def login():
 			resp.set_cookie('userpasswd', passwd.hexdigest())
 			return resp
 		else:
-			return render_template('error.html', 
+			return render_template(
+				'error.html', 
 				erro = 'Usuario não existe...', 
 				url = '/create', 
 				action = 'Registrar-se', 
-				dar = functions.dar())
+				dar = functions.dar()
+			)
 
 @app.route('/create', methods = ('GET', 'POST'))
 def create():
@@ -67,11 +75,14 @@ def create():
 			resp.set_cookie('userID', nick)
 			resp.set_cookie('userpasswd', passwd.hexdigest())
 			return resp
-		else: return render_template('error.html', 
-			erro = 'Esse usuario já existe...', 
-			url = '/login', 
-			action = "Entrar", 
-			dar = functions.dar())
+		else: 
+			return render_template(
+				'error.html', 
+				erro = 'Esse usuario já existe...', 
+				url = '/login', 
+				action = "Entrar", 
+				dar = functions.dar()
+			)
 
 @app.route('/js/<path:path>')
 def send_js(path):
