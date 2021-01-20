@@ -1,11 +1,11 @@
 from flask import Flask, render_template, send_from_directory, request, redirect, make_response
 import mysql.connector, hashlib, db, functions
 from datetime import datetime
+from decouple import config
 
 app = Flask(__name__)
 
-user = functions.user_db()
-BD = db.BancoDeDados(user[0], user[1])
+BD = db.BancoDeDados(config('USER_DB'), config('PASSWD_DB'))
 
 @app.route('/', methods = ('GET', 'POST'))
 def index():

@@ -1,10 +1,10 @@
 import mysql.connector
+from decouple import config
 
 class BancoDeDados(object):
 	def __init__(self, user, passwd):
-		self.mydb = mysql.connector.connect(user = user, passwd = passwd) # conecção com o banco de dados
+		self.mydb = mysql.connector.connect(user = user, passwd = passwd, db = config('DB')) # conecção com o banco de dados
 		self.mycursor = self.mydb.cursor()
-		self.mycursor.execute("use Links")
 
 	def basic_request(self, user):
 		self.mycursor.execute('select * from users')
@@ -28,7 +28,7 @@ class BancoDeDados(object):
 		try:
 			table = 'table_' + nick
 			self.mycursor.execute('insert into users (nick, passwd, tables) value ("%s", "%s", "%s")' % (nick, passwd, table))
-			self.mycursor.execute('create table %s (id int(255) primary key auto_increment, nome varchar(255), link varchar(255))' % (table))
+			self.mycursor.execute('create table %s (id int(191) primary key auto_increment, nome varchar(191), link varchar(191))' % (table))
 			return True
 		except:
 			return False
@@ -52,17 +52,10 @@ class BancoDeDados(object):
 		return True 
 
 if __name__ == '__main__':
-    user = input("Qual o nome do usuario MySQL?\n$ ")
-    passwd = input("Qual a senha desse usuario?\n$ ")
-
-    mydb = mysql.connector.connect(user = user, passwd = passwd)
+    mydb = mysql.connector.connect(user = config('USER_DB'), passwd = config('PASSWD_DB'))
     mycursor = mydb.cursor()
-    mycursor.execute("create database Links")
-    mycursor.execute("use Links")
-    mycursor.execute("create table users (nick varchar(255) primary key, passwd varchar(255), tables varchar(255))")
+    mycursor.execute("create database %s" %config('DB'))
+    mycursor.execute("use %s" %config('DB'))
+    mycursor.execute("create table users (nick varchar(191) primary key, passwd varchar(191), tables varchar(191))")
 
-    file_user = open('user.txt', 'w')
-    file_user.write(user + '\n' + passwd)
-    file_user.close()
-
-    print("Pronto!\nAgora você já pode executar o 'main.py' sem problemas, o banco de dados está pronto.")
+    print("Pronto!")
