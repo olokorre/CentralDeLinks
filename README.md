@@ -2,7 +2,7 @@
 
 ![screenshot](/static/image/screenshot.png)
 
-##Site: http://www.centraldelinks.xyz
+## Site: http://centraldelinks.xyz
 
 ## Requisitos:
 * python 3.6 ou superior com as dependências: 
