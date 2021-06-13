@@ -2,16 +2,16 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <link rel="shortcut icon" href="image/Atendimento.png" type="image/x-icon">
+        <link rel="shortcut icon" href="/image/Atendimento.png" type="image/x-icon">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src = "js/jquery-3.4.1.js"></script>
+        <script src = "/js/jquery-3.4.1.js"></script>
         {% block header %}{% endblock %}
-        <title>{% block title %}{% endblock %} - Central de Links</title>
+        <title>{% block title %}{% endblock %} | Central de Links</title>
     </head>
     <body>
         <div id = "barra">
-			<a href='/login'><p id='user_button'>{{user}}</p></a>
-			<h1 id="titulo">Central de links, {{dar}} </h1>
+			<a href="/profile/{{user}}"><p id="user_button">{{user}}</p></a>
+			<a href="/"><h1 id="titulo">Central de links, {{dar}} </h1></a>
 		</div>
         {% block content %}{% endblock %}
     </body>

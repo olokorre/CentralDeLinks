@@ -12,3 +12,8 @@ def login():
 def create():
 	if request.method == 'GET': return render_template('create.html', dar = functions.dar())
 	elif request.method == 'POST': return users.create_user()
+
+@app.route('/profile/<user>', methods = ('GET', 'POST'))
+def prifile(user):
+	if request.method == 'GET': return users.get_profile(user)
+	return users.save_bio()

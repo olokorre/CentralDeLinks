@@ -51,11 +51,20 @@ class BancoDeDados(object):
 		self.mydb.commit()
 		return True 
 
+	def get_profile(self, user):
+		self.mycursor.execute('select bio from users where nick = "%s"' %user)
+		return self.mycursor.fetchone()[0]
+
+	def save_bio(self, bio, user):
+		print(bio)
+		self.mycursor.execute('update users set bio = "%s" where nick = "%s"'%(bio, user))
+		self.mydb.commit()
+
 if __name__ == '__main__':
     mydb = mysql.connector.connect(user = config('USER_DB'), passwd = config('PASSWD_DB'))
     mycursor = mydb.cursor()
     mycursor.execute("create database %s" %config('DB'))
     mycursor.execute("use %s" %config('DB'))
-    mycursor.execute("create table users (nick varchar(191) primary key, passwd varchar(191), tables varchar(191))")
+    mycursor.execute("create table users (nick varchar(191) primary key, passwd varchar(191), bio text default 'Aqui, você pode falar um pouco sobre você :)', tables varchar(191))")
 
     print("Pronto!")

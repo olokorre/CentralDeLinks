@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <link rel = "stylesheet" type = "text/css" href = "/css/style.css" />
+	<script src = "/js/script.js"></script>
+{% endblock %}
+
+{% block title %} Perfil {% endblock %}
+
+{% block content %}
+    <div style="display: none;" id='mostrar' align="center">
+        <table id = "bio_user">
+            <tr>
+                <th><img  style="border-radius: 25px;" src="/image/pug.jpg" height="90px" width="90px" /> </th>
+                <th style="text-align: left;"><h2> {{user_profile}} </h2></th>
+            </tr>
+            <tr>
+                <td><div align="center">
+                    {% if user == user_profile %}
+                        <a href="/login"><button>Sair</button></a></div>
+                    {% else %}
+                        <button>Aderir</button>
+                    {% endif %}
+                </td>
+                <td id="bio">
+                    {{bio_user}}
+                    {% if user == user_profile %}
+                        <button onclick="start_edit()">Editar</button>
+                    {% endif %}
+                </td>
+                <td id="edit_bio" style="display: none;">
+                    <textarea id="bio_text_edit">{{bio_user}}</textarea><br>
+                    <button onclick="save_bio('{{user}}')">Salvar</button>
+                    <button onclick="calcel_edit()">Cancelar</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
