@@ -4,7 +4,7 @@ a { color: black; }
 
 .menu, #barra, tr { border-radius: 10px; }
 
-tr {
+#links_table {
 	border: 2px solid black;
 	-webkit-transition: 1s;
 	color: black;
@@ -12,7 +12,7 @@ tr {
 
 table { font-size: 12px; }
 
-tr:hover {
+#links_table:hover {
 	-webkit-transition: 1s;
 	background-color: rgb(182, 182, 182);
 }
@@ -47,4 +47,18 @@ th, td { padding: 15px; }
 	float: right;
 	margin-right: 20px;
 	margin-top: 30px;
+}
+
+#bio_user {
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+#bio_text_edit {
+	font-size: 12px;
+	margin-top: 2%;
+    width: 200px;
+    height: 100px;
+    border-radius: 5px;
+    margin-bottom: 2%;
 }

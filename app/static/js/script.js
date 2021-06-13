@@ -31,3 +31,26 @@ function Voltar() { // executa a animação de voltar a pagina inicial
 }
 
 function Limpar(id) { document.getElementById(id).value = ""; }
+
+function start_edit() {
+	$("#bio").fadeOut("slow");
+	setTimeout(() => { $("#edit_bio").fadeIn("slow"); }, 1200);
+}
+
+function calcel_edit() {
+	$("#edit_bio").fadeOut("slow");
+	setTimeout(() => { $("#bio").fadeIn("slow"); }, 1200);
+}
+
+function save_bio(user) {
+	$.ajax({
+		url: '/profile/' + user,
+		type: 'POST',
+		data:{
+			bio: $('#bio_text_edit').val(),
+		},
+		success: (data) => {
+			window.location.href = '/profile/' + user;
+		}
+	});
+}
