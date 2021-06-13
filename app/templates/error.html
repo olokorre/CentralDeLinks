@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="shortcut icon" href="image/Atendimento.png" type="image/x-icon">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src = "js/jquery-3.4.1.js"></script>
-        <link rel = "stylesheet" type = "text/css" href = "css/style-login.css" />
-        <link rel = "stylesheet" type = "text/css" href = "css/style.css" />
-		<script src = "js/script.js"></script>
-        <title>Faça login</title>
-    </head>
-    <body>
-        <div id = "barra">
-			<h1 id = "titulo">Central de links, {{dar}} </h1>
-        </div>
-        <div style="display: none;" id='mostrar' align = "center">
-            <p>{{erro}} :/</p><br />
-            <a href="{{url}}"><button style='margin-top:10px'>{{action}}</button></a>
-        </div>
-    </body>
-</html>
+{% extends 'base.html' %}
+
+{% block header %}
+    <link rel = "stylesheet" type = "text/css" href = "css/style-login.css" />
+    <link rel = "stylesheet" type = "text/css" href = "css/style.css" />
+    <script src = "js/script.js"></script>
+{% endblock %}
+
+{% block title %} Algo inesperado aconteceu {% endblock %}
+
+{% block content %}
+    <div style="display: none;" id='mostrar' align = "center">
+        <p>{{erro}} :/</p><br />
+        <a href="{{url}}"><button style='margin-top:10px'>{{action}}</button></a>
+    </div>
+{% endblock %}
