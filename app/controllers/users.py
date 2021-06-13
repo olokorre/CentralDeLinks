@@ -1,11 +1,11 @@
 from app import app, BD
-from flask import render_template, request, redirect, make_response
+from flask import render_template, request, redirect, make_response, session
 import hashlib, functions
 
 def log_out():
     resp = make_response(render_template('login.html', dar = functions.dar()))
-    resp.set_cookie('userID', 'None')
-    resp.set_cookie('userpasswd', 'None')
+    session['userID'] = 'None'
+    session['userpasswd'] = 'None'
     return resp
 
 def create_user():
@@ -13,8 +13,8 @@ def create_user():
     passwd = hashlib.md5(request.form['senha'].encode())
     if BD.create_user(nick, passwd.hexdigest()):
         resp = make_response(redirect('/'))
-        resp.set_cookie('userID', nick)
-        resp.set_cookie('userpasswd', passwd.hexdigest())
+        session['userID'] = nick
+        session['userpasswd'] = passwd.hexdigest()
         return resp
     else: 
         return render_template(
@@ -30,8 +30,8 @@ def log_in():
     passwd = hashlib.md5(request.form['senha'].encode())
     if BD.user_check(nick, passwd.hexdigest()):
         resp = make_response(redirect('/'))
-        resp.set_cookie('userID', nick)
-        resp.set_cookie('userpasswd', passwd.hexdigest())
+        session['userID'] = nick
+        session['userpasswd'] = passwd.hexdigest()
         return resp
     else:
         return render_template(
@@ -43,8 +43,8 @@ def log_in():
         )
 
 def get_profile(view_user):
-    user = request.cookies.get('userID')
-    passwd = request.cookies.get('userpasswd')
+    user = session['userID']
+    passwd = session['userpasswd']
     if user == None or user == 'None': return redirect('/login')
     request_db = BD.request(user, passwd)
     if request_db == False:
@@ -64,8 +64,8 @@ def get_profile(view_user):
     )
 
 def save_bio():
-    user = request.cookies.get('userID')
-    passwd = request.cookies.get('userpasswd')
+    user = session.get('userID')
+    passwd = session.get('userpasswd')
     if user == None or user == 'None': return redirect('/login')
     BD.save_bio(request.form['bio'], user)
     return { "messange": "ok" }

@@ -1,4 +1,4 @@
 user.txt
-.env
 __pycache__/
 .env
+.vscode/

@@ -1,10 +1,10 @@
 from app import BD
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session
 import functions
 
 def create_link():
-    user = request.cookies.get('userID')
-    passwd = request.cookies.get('userpasswd')
+    user = session.get('userID')
+    passwd = session.get('userpasswd')
     if BD.send_data(user, passwd, request.form['nome'], request.form['link']): return redirect('/')
     return render_template(
         'error.html',
@@ -15,8 +15,8 @@ def create_link():
     )
 
 def get_liks():
-    user = request.cookies.get('userID')
-    passwd = request.cookies.get('userpasswd')
+    user = session.get('userID')
+    passwd = session.get('userpasswd')
     if user == None or user == 'None': return redirect('/login')
     request_db = BD.request(user, passwd)
     if request_db == False:
