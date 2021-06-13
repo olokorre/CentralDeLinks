@@ -1,7 +1,4 @@
 # Central de Links
-
-![screenshot](/static/image/screenshot.png)
-
 ## Site: http://centraldelinks.xyz
 
 ## Requisitos:
@@ -19,10 +16,13 @@ O principal objetivo dele é aprender mais sobre o básico de uma aplicação we
 Já com a aplicação rodando, a primeira tela que você verá será a de login. Como o banco de dados dele estará zerado na primeira vez que ele for acessado, o usuario precisa criar um nome de usuário, clicando em 'registrar-se'. Escolhendo um 'nick', o servidor armazenará ele em seu banco de dados e criará uma tabela especifica para esse usuario recem criado, e redirecionará para a parte principal da aplicação. Nela haverá 2 botões: o primeiro leva a uma tabela que mostra os 'links' já armazenado e o segundo leva a uma tela para inserir 'links' no sistema. Para inserir, basta informar um 'nome' (algo que te faça lembrar do que se trata, pode ser o nome do site ou alguma frase que remeta ao conteúdo dele) e um 'link', sendo este a URL do site que deseja salvar. Feito isso, a aplicação enviará as informações para a tabela referente ao usuario logado no momento e recarregará a página. As alterações estarão visíveis no primeiro botão. Para encerrar a sessão do usuário atual, basta clicar no seu nome de usuário, no canto superior direito da tela.
 
 ## Proximas implementações:
-- [X] Usuarios;
+- [x] Usuarios;
 - [x] Cookies;
 - [x] Senhas;
 - [x] Organizar;
-- [ ] Apresentar;
+- [x] Apresentar;
+- [ ] Sistema de amizade;
+- [ ] Sistema de compartilhamento de links;
+- [ ] Melhorar a experiência WPA;
 
 Acredito ter resumido o projeto, espero que goste e abuse do meu sistema, pode quebrar-lo a vontade :)
