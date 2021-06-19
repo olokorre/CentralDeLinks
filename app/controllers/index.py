@@ -32,6 +32,7 @@ def get_liks():
         dar = functions.dar(), 
         nome = request_db[0],
         link = request_db[1],
+        ids = request_db[2],
         tam = len(request_db[0]),
         user = user
     )
