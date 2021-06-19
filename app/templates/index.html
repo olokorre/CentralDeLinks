@@ -2,6 +2,8 @@
 
 {% block header %}
 	<link rel = "stylesheet" type = "text/css" href = "css/style.css" />
+	<link href='https://css.gg/trash.css' rel='stylesheet'>
+	<link href='https://css.gg/pen.css' rel='stylesheet'>
 	<script src = "js/script.js"></script>
 {% endblock %}
 
@@ -18,12 +20,16 @@
 						<th>ID</th>
 						<th>Nome</th>
 						<th>Link</th>
+						<th>Operações</th>
 					</tr>
 					{% for i in range(tam) %}
 					<tr id = "links_table">
 						<td> {{i + 1}} </td>
 						<td> {{nome[i]}} </td>
 						<td><a target="blank_" href="{{link[i]}}"> {{link[i]}} </a></td>
+						<td>
+							<div onclick="delete_link('{{ids[i]}}')" align="center"><i class="gg-trash"></i></div>
+						</td>
 					</tr>
 					{% endfor %}
 				</table>
@@ -39,4 +45,42 @@
 		</div>
 		<button style = "display: none; margin-top: 30px;" id = "Voltar" onclick = "Voltar()">Voltar</button>
 	</div>
+	<script>
+		function delete_link(id) {
+			Swal.fire({
+				title: 'Tem certeza?',
+				text: "Quer deletar esse link?",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Sim, deletar!',
+				cancelButtonText: 'Cancelar',
+			}).then((result) => {
+				if (result.isConfirmed) {
+					Swal.showLoading();
+					$.ajax({
+						url: '/links/' + id,
+						type: 'DELETE',
+						success: () => {
+							Swal.fire({
+								title: 'Deletado',
+								text: 'Link deletado!',
+								icon: 'success'
+							}).then((result) => {
+								location.reload();
+							});
+						},
+						error: () => {
+							Swal.fire({
+								title: 'Deu ruim!',
+								text: 'Link não foi deletado!',
+								icon: 'error'
+							});
+						}
+					});
+				}
+			});
+		}
+	</script>
 {% endblock %}

@@ -13,7 +13,7 @@ class BancoDeDados(object):
 				if user == i[0]: table = 'table_' + i[0]
 			return table
 		except mysql.connector.errors.OperationalError:
-			self.mycursor.rollback()
+			self.mydb.rollback()
 			self.basic_request(user)
 
 	def user_check(self, nick, passwd):
@@ -29,7 +29,7 @@ class BancoDeDados(object):
 					if nick == i and passwd == l: return True
 			return False
 		except mysql.connector.errors.OperationalError:
-			self.mycursor.rollback()
+			self.mydb.rollback()
 			self.user_check(nick, passwd)
 	
 	def create_user(self, nick, passwd):
@@ -39,7 +39,7 @@ class BancoDeDados(object):
 			self.mycursor.execute('create table %s (id int(191) primary key auto_increment, nome varchar(191), link varchar(191))' % (table))
 			return True
 		except mysql.connector.errors.OperationalError:
-			self.mycursor.rollback()
+			self.mydb.rollback()
 			self.create_user(nick, passwd)
 		except:
 			return False
@@ -50,13 +50,15 @@ class BancoDeDados(object):
 			table = self.basic_request(user)
 			nome = []
 			link = []
+			_id = []
 			self.mycursor.execute('select * from %s' % (table))
 			for i in self.mycursor:
 				nome.append(i[1])
 				link.append(i[2])
-			return [nome, link]
+				_id.append(i[0])
+			return [nome, link, _id]
 		except mysql.connector.errors.OperationalError:
-			self.mycursor.rollback()
+			self.mydb.rollback()
 			self.request(user, passwd)
 
 	def send_data(self, user, passwd, nome, link):
@@ -67,7 +69,7 @@ class BancoDeDados(object):
 			self.mydb.commit()
 			return True 
 		except mysql.connector.errors.OperationalError:
-			self.mycursor.rollback()
+			self.mydb.rollback()
 			self.send_data(user, passwd, nome, link)
 
 	def get_profile(self, user):
@@ -75,7 +77,7 @@ class BancoDeDados(object):
 			self.mycursor.execute('select bio from users where nick = "%s"' %user)
 			return self.mycursor.fetchone()
 		except mysql.connector.errors.OperationalError:
-			self.mycursor.rollback()
+			self.mydb.rollback()
 			self.get_profile(user)
 
 	def save_bio(self, bio, user):
@@ -83,8 +85,17 @@ class BancoDeDados(object):
 			self.mycursor.execute('update users set bio = "%s" where nick = "%s"'%(bio, user))
 			self.mydb.commit()
 		except mysql.connector.errors.OperationalError:
-			self.mycursor.rollback()
+			self.mydb.rollback()
 			self.save_bio(user, bio)
+
+	def delete_link(self, id, user):
+		try:
+			table = self.basic_request(user)
+			self.mycursor.execute('delete from %s where id = %s' %(table, id))
+			self.mydb.commit()
+		except mysql.connector.errors.OperationalError:
+			self.mydb.rollback()
+			self.delete_link(id)
 
 if __name__ == '__main__':
     mydb = mysql.connector.connect(user = config('USER_DB'), passwd = config('PASSWD_DB'))
