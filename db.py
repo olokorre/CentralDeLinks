@@ -75,7 +75,7 @@ class BancoDeDados(object):
 	def get_profile(self, user):
 		try:
 			self.mycursor.execute('select bio from users where nick = "%s"' %user)
-			return self.mycursor.fetchone()
+			return self.mycursor.fetchone()[0]
 		except mysql.connector.errors.OperationalError:
 			self.mydb.rollback()
 			self.get_profile(user)
