@@ -3,16 +3,22 @@
 {% block header %}
     <link rel = "stylesheet" type = "text/css" href = "/css/style.css" />
 	<script src = "/js/script.js"></script>
+    <style>
+        #content_profile {
+            background-color:  #191919;
+            border-radius: 25px;
+        }
+    </style>
 {% endblock %}
 
 {% block title %} Perfil {% endblock %}
 
 {% block content %}
-    <div style="display: none;" id='mostrar' align="center">
+    <div style="display: none;" class="mostrar" align="center">
         <table id = "bio_user">
             <tr>
-                <th><img  style="border-radius: 25px;" src="/image/pug.jpg" height="90px" width="90px" /> </th>
-                <th style="text-align: left;"><h2> {{user_profile}} </h2></th>
+                <th><img style="border-radius: 25px;" src="/image/pug.jpg" height="90px" width="90px" /> </th>
+                <th style="text-align: left;"><h2 style="color:white; font-size: 30px;"> {{user_profile}} </h2></th>
             </tr>
             <tr>
                 <td><div align="center">
@@ -24,6 +30,7 @@
                 </td>
                 <td id="bio">
                     {{bio_user}}
+                    <br />
                     {% if user == user_profile %}
                         <button onclick="start_edit()">Editar</button>
                     {% endif %}

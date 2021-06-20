@@ -10,12 +10,23 @@ a { color: black; }
 	color: black;
 }
 
-table { font-size: 12px; }
+body { background-color:  #303030; }
 
-#links_table:hover {
-	-webkit-transition: 1s;
-	background-color: rgb(182, 182, 182);
+td {
+	color: white;
 }
+
+input, button {
+	background-color: #1b1b1b;
+	color: white;
+	border:0px;
+	padding: 12px 20px;
+}
+
+#swal2-title { color: white; }
+#swal2-html-container { color: white; }
+
+table { font-size: 12px; }
 
 th, td { padding: 15px; }
 
@@ -24,12 +35,12 @@ th, td { padding: 15px; }
 .menu {
 	width: 202px;
 	height: 151px;
-	border: 5px solid #CCC;
+	border: 5px solid #1b1b1b;
 }
 
 .menu:hover { border: 5px solid black; }
 
-#mostrar { margin-top: 60px; }
+.mostrar { margin-top: 60px; }
 
 #barra { 
 	border: solid 5px;
@@ -52,13 +63,14 @@ th, td { padding: 15px; }
 #bio_user {
 	margin-left: 20%;
 	margin-right: 20%;
+	font-size: 15px;
 }
 
 #bio_text_edit {
-	font-size: 12px;
+	font-size: 15px;
 	margin-top: 2%;
-    width: 200px;
-    height: 100px;
     border-radius: 5px;
     margin-bottom: 2%;
+	background-color: #1b1b1b;
+	color: white;
 }

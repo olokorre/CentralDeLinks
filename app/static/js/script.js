@@ -1,6 +1,6 @@
 $(document).ready(() => { // inicializa as animações de inicialização
 	setTimeout(() => { $("#barra").fadeIn("slow"); }, 1200);
-	setTimeout(() => { $("#mostrar").fadeIn("slow"); }, 2300);
+	setTimeout(() => { $(".mostrar").fadeIn("slow"); }, 2300);
 	$(".menu").addClass("transicao");
 	// $(".tabela").css("width", (window.screen.availWidth - 10) + "px");
 	// $(".tabela").css("height", "400px");

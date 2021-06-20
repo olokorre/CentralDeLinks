@@ -11,12 +11,13 @@
 
 {% block content %}
 	<div align = "center">
-		<div style = "display: none;" id = "mostrar">
+		<div style = "display: none;" class = "mostrar">
 			<img class = "menu" onclick = "MostrarLinks()" src = "image/cacorro.jpeg" />
 			<img class = "menu" onclick = "AddLinks()" src = "image/envia.jpg" />
 			<div class = "tabela" style = "display: none;">
+				{% if tam != 0 %}
 				<table>
-					<tr style='background-color: rgb(182, 182, 182);'>
+					<tr style='background-color: #191919; color: white;'>
 						<th>ID</th>
 						<th>Nome</th>
 						<th>Link</th>
@@ -26,19 +27,22 @@
 					<tr id = "links_table">
 						<td> {{i + 1}} </td>
 						<td> {{nome[i]}} </td>
-						<td><a target="blank_" href="{{link[i]}}"> {{link[i]}} </a></td>
+						<td><a style="color: white;" target="blank_" href="{{link[i]}}"> {{link[i]}} </a></td>
 						<td>
 							<div onclick="delete_link('{{ids[i]}}')" align="center"><i class="gg-trash"></i></div>
 						</td>
 					</tr>
 					{% endfor %}
 				</table>
+				{% else %}
+				<h2 style="color: white;">Nenhum link adicionado...</h2>
+				{% endif %}
 			</div>
 			<form method = "POST">
 				<div id = "import" style = "display: none;">
-					<h2>Informe o link aqui: </h2>
-					<input required placeholder="Nome" id = 'nome' name = "nome" />
-					<input required placeholder="Link" id = 'link' name = "link" /> <br />
+					<h2 style="color: white;">Informe o link aqui: </h2>
+					<input class="inputs" required placeholder="Nome" id = 'nome' name = "nome" />
+					<input class="inputs" required placeholder="Link" id = 'link' name = "link" /> <br />
 					<input type = "submit" value = "Enviar" style = "margin-top: 30px;" />
 				</div>
 			</form>
@@ -56,6 +60,7 @@
 				cancelButtonColor: '#d33',
 				confirmButtonText: 'Sim, deletar!',
 				cancelButtonText: 'Cancelar',
+				background: '#191919',
 			}).then((result) => {
 				if (result.isConfirmed) {
 					Swal.showLoading();
@@ -66,16 +71,18 @@
 							Swal.fire({
 								title: 'Deletado',
 								text: 'Link deletado!',
-								icon: 'success'
+								icon: 'success',
+								background: '#191919',
 							}).then((result) => {
 								location.reload();
 							});
 						},
 						error: () => {
 							Swal.fire({
-								title: 'Deu ruim!',
+								title: 'Algo deu errado :(',
 								text: 'Link não foi deletado!',
-								icon: 'error'
+								icon: 'error',
+								background: '#191919',
 							});
 						}
 					});
