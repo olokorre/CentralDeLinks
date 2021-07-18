@@ -96,6 +96,17 @@ class BancoDeDados(object):
 		except mysql.connector.errors.OperationalError:
 			self.mydb.rollback()
 			self.delete_link(id)
+	
+	def get_link_by_id(self, id, user):
+		table = self.basic_request(user)
+		self.mycursor.execute('select * from %s where id = %s' %(table, id))
+		return self.mycursor.fetchone()
+	
+	def share_link(self, id, remetente, destinatario):
+		table = self.basic_request(destinatario)
+		link = self.get_link_by_id(id, remetente)
+		self.mycursor.execute('insert into %s (nome, link) values ("%s", "%s")' %(table, link[1], link[2]))
+		self.mydb.commit()
 
 if __name__ == '__main__':
     mydb = mysql.connector.connect(user = config('USER_DB'), passwd = config('PASSWD_DB'))
