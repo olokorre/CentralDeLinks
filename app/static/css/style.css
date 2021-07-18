@@ -4,23 +4,21 @@ a { color: black; }
 
 .menu, #barra, tr { border-radius: 10px; }
 
-#links_table {
-	border: 2px solid black;
-	-webkit-transition: 1s;
-	color: black;
-}
-
 body { background-color:  #303030; }
 
-td {
-	color: white;
-}
+td { color: white; }
 
 input, button {
 	background-color: #1b1b1b;
 	color: white;
-	border:0px;
+	border: 1px solid #303030;
 	padding: 12px 20px;
+	-webkit-transition: 1s;
+}
+
+input:hover, button:hover {
+	border: 1px solid black;
+	-webkit-transition: 1s;
 }
 
 #swal2-title { color: white; }

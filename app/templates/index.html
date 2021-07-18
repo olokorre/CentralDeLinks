@@ -3,8 +3,9 @@
 {% block header %}
 	<link rel = "stylesheet" type = "text/css" href = "css/style.css" />
 	<link href='https://css.gg/trash.css' rel='stylesheet'>
-	<link href='https://css.gg/pen.css' rel='stylesheet'>
+	<link href='https://css.gg/share.css' rel='stylesheet'>
 	<script src = "js/script.js"></script>
+	<script src = "js/links.js"></script>
 {% endblock %}
 
 {% block title %} Home {% endblock %}
@@ -28,8 +29,13 @@
 						<td> {{i + 1}} </td>
 						<td> {{nome[i]}} </td>
 						<td><a style="color: white;" target="blank_" href="{{link[i]}}"> {{link[i]}} </a></td>
-						<td>
-							<div onclick="delete_link('{{ids[i]}}')" align="center"><i class="gg-trash"></i></div>
+						<td style="padding: 0px;">
+							<button style="width: 50px; height: 40px; padding: 15px; position: absolute;" onclick="share_link('{{ids[i]}}')">
+								<i class="gg-share"></i>
+							</button>
+							<button style="width: 50px; height: 40px; margin-left: 55px; padding: 12px 19px;" onclick="delete_link('{{ids[i]}}')">
+								<i class="gg-trash"></i>
+							</button>
 						</td>
 					</tr>
 					{% endfor %}
@@ -49,45 +55,4 @@
 		</div>
 		<button style = "display: none; margin-top: 30px;" id = "Voltar" onclick = "Voltar()">Voltar</button>
 	</div>
-	<script>
-		function delete_link(id) {
-			Swal.fire({
-				title: 'Tem certeza?',
-				text: "Quer deletar esse link?",
-				icon: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'Sim, deletar!',
-				cancelButtonText: 'Cancelar',
-				background: '#191919',
-			}).then((result) => {
-				if (result.isConfirmed) {
-					Swal.showLoading();
-					$.ajax({
-						url: '/links/' + id,
-						type: 'DELETE',
-						success: () => {
-							Swal.fire({
-								title: 'Deletado',
-								text: 'Link deletado!',
-								icon: 'success',
-								background: '#191919',
-							}).then((result) => {
-								location.reload();
-							});
-						},
-						error: () => {
-							Swal.fire({
-								title: 'Algo deu errado :(',
-								text: 'Link não foi deletado!',
-								icon: 'error',
-								background: '#191919',
-							});
-						}
-					});
-				}
-			});
-		}
-	</script>
 {% endblock %}
