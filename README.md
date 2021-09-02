@@ -22,7 +22,7 @@ Já com a aplicação rodando, a primeira tela que você verá será a de login.
 - [x] Organizar;
 - [x] Apresentar;
 - [ ] Sistema de amizade;
-- [ ] Sistema de compartilhamento de links;
+- [x] Sistema de compartilhamento de links;
 - [ ] Melhorar a experiência WPA;
 
 Acredito ter resumido o projeto, espero que goste e abuse do meu sistema, pode quebrar-lo a vontade :)
