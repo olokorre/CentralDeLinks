@@ -10,12 +10,100 @@
 
 {% block content %}
     <div style="display: none;" class="mostrar" align = "center">
-        <form id='form1' method = "POST">
-            <h2 style="color: white;">Escolha um nome de Usuario para a sua conta:</h2>
-            <input class="inputs" required placeholder="Nome de Usuario" id = 'user' name = "user" /> <br />
-            <input class="inputs" required placeholder="Senha" type='password' id = 'senha' name = "senha" /> <br />
-            <button type='submit' style = "margin-top: 20px;">Registre-se</button>
-        </form>
+        <h2 style="color: white;">
+            Escolha um nome de Usuario para a sua conta:
+        </h2>
+        <input class="inputs" required placeholder="Nome de Usuario" id="user" /> <br />
+        <input class="inputs" required placeholder="Senha" type="password" id="senha" /> <br />
+        <input class="inputs" required placeholder="Repita a Senha" type="password" id="reSenha" /> <br />
+        <button id="submit" style = "margin-top: 20px;">Registre-se</button>
+        <br />
+        <span>ou</span>
+        <br />
         <a href="/login"><button style='margin-top:10px'>Entrar</button></a>
     </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const characterInString = (character, string) => {
+        let control = false;
+        for (index in string) {
+            if (string.charAt(index) == character) control = true;
+        }
+        return control;
+    }
+
+    $('#submit').on('click', () => {
+        const user = $('#user');
+        const senha = $('#senha');
+        const reSenha = $('#reSenha');
+
+        if (user.val() && senha.val() && reSenha.val()) {
+            Swal.fire({
+                title: "Aguarde...",
+                background: "#303030"
+            });
+            Swal.showLoading();
+            if (senha.val() != reSenha.val()) Swal.fire({
+                title: "Senhas não conferem!",
+                text: "As senhas devem ser iguas!",
+                icon: "error",
+                background: "#303030"
+            })
+            else if (senha.val().length < 6) Swal.fire({
+                title: "Senha inválida!",
+                text: "Sua senha deve ter no mínimo seis caracteres...",
+                icon: "error",
+                background: "#303030"
+            })
+            else if (characterInString(' ', senha.val())) Swal.fire({
+                title: "Senha inválida!",
+                text: "Sua senha não pode conter espaços!",
+                icon: "error",
+                background: "#303030"
+            })
+            else if (user.val().length < 3) Swal.fire({
+                title: "Usuário inválida!",
+                text: "Seu usuário deve ter no mínimo seis caracteres...",
+                icon: "error",
+                background: "#303030"
+            })
+            else if (characterInString(' ', user.val())) Swal.fire({
+                title: "Usuário inválida                                                                                                                                                                                                                                                                                                                                                                                                                                                                !",
+                text: "Seu usuário não pode conter espaços!",
+                icon: "error",
+                background: "#303030"
+            })
+            else {
+                $.ajax({
+                    url: "/create",
+                    type: "POST",
+                    data: {
+                        user: user.val(),
+                        senha: senha.val()
+                    },
+                    success: (result) => {
+                        window.location.href = "/";
+                    },
+                    error: (result) => {
+                        Swal.fire({
+                            title: "Usuário inválida!",
+                            text: result.responseJSON.message,
+                            icon: "error",
+                            background: "#303030"
+                        });
+                    }
+                });
+            }
+        } else {
+            Swal.fire({
+                title: "Preencha os campos!",
+                icon: "warning",
+                text: "Você deve preencher todos os campos!",
+                background: "#303030"
+            });
+        }
+    });
+</script>
 {% endblock %}

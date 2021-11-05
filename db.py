@@ -3,7 +3,7 @@ from decouple import config
 
 class BancoDeDados(object):
 	def __init__(self, user, passwd):
-		self.mydb = mysql.connector.connect(user = user, passwd = passwd, db = config('DB')) # conecção com o banco de dados
+		self.mydb = mysql.connector.connect(user = user, passwd = passwd, db = config('DB'), host = config('DB_HOST')) # conecção com o banco de dados
 		self.mycursor = self.mydb.cursor()
 
 	def basic_request(self, user):
@@ -109,7 +109,7 @@ class BancoDeDados(object):
 		self.mydb.commit()
 
 if __name__ == '__main__':
-    mydb = mysql.connector.connect(user = config('USER_DB'), passwd = config('PASSWD_DB'))
+    mydb = mysql.connector.connect(user = config('USER_DB'), passwd = config('PASSWD_DB'), host = config('DB_HOST'))
     mycursor = mydb.cursor()
     mycursor.execute("create database %s" %config('DB'))
     mycursor.execute("use %s" %config('DB'))

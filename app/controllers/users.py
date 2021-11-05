@@ -17,13 +17,9 @@ def create_user():
         session['userpasswd'] = passwd.hexdigest()
         return resp
     else: 
-        return render_template(
-            'error.html',
-            erro = 'Esse usuario já existe...',
-            url = '/login',
-            action = "Entrar",
-            dar = functions.dar()
-        )
+        return {
+            "message": "Usuário já existe..."
+        }, 400
 
 def log_in():
     nick = request.form['user']
@@ -34,13 +30,9 @@ def log_in():
         session['userpasswd'] = passwd.hexdigest()
         return resp
     else:
-        return render_template(
-            'error.html', 
-            erro = 'Usuario não existe ou senha incorreta...', 
-            url = '/create',
-            action = 'Registrar-se', 
-            dar = functions.dar()
-        )
+        return {
+            "message": "Usuário e senha não conferem..."
+        }, 400
 
 def get_profile(view_user):
     user = session['userID']

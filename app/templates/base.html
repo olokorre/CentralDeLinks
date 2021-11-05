@@ -3,6 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <link rel="shortcut icon" href="/image/Atendimento.png" type="image/x-icon">
+        <link rel = "stylesheet" type = "text/css" href = "/css/style.css" />
+        <link rel = "stylesheet" type = "text/css" href = "/css/font-awesome.min.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src = "/js/jquery-3.4.1.js"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -11,9 +13,40 @@
     </head>
     <body>
         <div id = "barra">
-			<a href="/profile/{{user}}"><p id="user_button">{{user}}</p></a>
-			<a href="/"><h1 id="titulo">Central de links, {{dar}} </h1></a>
+            {% if user %}
+            <span id="user_button">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                {{user}}
+            </span>
+            {% endif %}
+            <span id="titulo">
+                <b>Central de links, {{dar}}</b>
+            </span>
 		</div>
-        {% block content %}{% endblock %}
+        
+        <div id="content">{% block content %}{% endblock %}</div>
     </body>
+    <script>
+        $('#titulo').on('click', () => {
+            window.location.href='/';
+        });
+
+        $('#user_button').on('click', () => {
+            Swal.fire({
+                title: "Bem vindo, {{user}}!",
+                showDenyButton: true,
+                confirmButtonText: 'Perfil',
+                background: '#303030',
+                denyButtonText: "Sair",
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    window.location.href='/profile/{{user}}';
+                } else if (result.isDenied) {
+                    window.location.href='/login';
+                }
+            });
+        });
+    </script>
+    {% block scripts %} {% endblock %}
 </html>

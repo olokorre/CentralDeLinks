@@ -1,8 +1,8 @@
 * { font-family: Arial, Helvetica, sans-serif; }
 
-a { color: black; }
+span { color: white; }
 
-.menu, #barra, tr { border-radius: 10px; }
+a { color: black; }
 
 body { background-color:  #303030; }
 
@@ -38,24 +38,28 @@ th, td { padding: 15px; }
 
 .menu:hover { border: 5px solid black; }
 
-.mostrar { margin-top: 60px; }
+#content { margin-top: 20px; }
 
-#barra { 
-	border: solid 5px;
+#barra {
+	text-align: center;
+	border: solid 15px;
 	display: none;
 	background-color: black;
 }
 
 #titulo {
 	color:white;
-	text-align: center;
+	font-size: 25px;
+	display: block;
+	display: inline-block;
+	margin-left: 5%;
 }
 
 #user_button {
 	color: white;
 	float: right;
 	margin-right: 20px;
-	margin-top: 30px;
+	margin-top: 5px;
 }
 
 #bio_user {
@@ -72,3 +76,11 @@ th, td { padding: 15px; }
 	background-color: #1b1b1b;
 	color: white;
 }
+
+.icons {
+	width: 60px;
+	height: 60px;
+}
+
+#btnDelete:hover { background-color: #9c2525; }
+#btnShare:hover { background-color: #1f8730; }

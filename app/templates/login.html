@@ -10,12 +10,58 @@
 
 {% block content %}
     <div style="display: none;" class="mostrar" align = "center">
-        <form id='form1' method = "POST">
-            <h2 style="color: white">Entre em sua conta: </h2>
-            <input class="inputs" required placeholder="Nome de Usuario" id = 'user' name = "user" /> <br />
-            <input class="inputs" required placeholder="Senha" type='password' id = 'senha' name = "senha" /> <br />
-            <button type='submit' style='margin-top: 20px;'>Entrar</button>
-        </form>
+        <h2 style="color: white">Entre em sua conta: </h2>
+        <input class="inputs" required placeholder="Nome de Usuario" id="user" /> <br />
+        <input class="inputs" required placeholder="Senha" type="password" id="senha" /> <br />
+        <button id='submit' style='margin-top: 20px;'>Entrar</button>
+        <br />
+        <span>ou</span>
+        <br />
         <a href="/create"><button style='margin-top:10px'>Registrar-se</button></a>
     </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $("#submit").on('click', () => {
+        const user = $('#user');
+        const senha = $('#senha');
+
+        if (user.val() && senha.val()) {
+            Swal.fire({
+                title: "Aguarde...",
+                background: "#303030"
+            });
+            Swal.showLoading();
+            $.ajax({
+                url: "/login",
+                type: "POST",
+                data: {
+                    user: user.val(),
+                    senha: senha.val()
+                },
+                success: (result) => {
+                    console.log(result)
+                    window.location.href = "/";
+                },
+                error: (result) => {
+                    console.log(result);
+                    Swal.fire({
+                        title: "Falha no login...",
+                        text: result.responseJSON.message,
+                        icon: "error",
+                        background: "#303030"
+                    });
+                }
+            });
+        } else {
+            Swal.fire({
+                title: "Preencha os campos!",
+                icon: "warning",
+                text: "Você deve preencher todos os campos!",
+                background: "#303030"
+            });
+        }
+    });
+</script>
 {% endblock %}
