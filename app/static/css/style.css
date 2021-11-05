@@ -24,9 +24,9 @@ input:hover, button:hover {
 #swal2-title { color: white; }
 #swal2-html-container { color: white; }
 
-table { font-size: 12px; }
+table { font-size: 15px; }
 
-th, td { padding: 15px; }
+th, td { padding: 8px; }
 
 .transicao { -webkit-transition: 1s; }
 
@@ -77,10 +77,10 @@ th, td { padding: 15px; }
 	color: white;
 }
 
-.icons {
-	width: 60px;
-	height: 60px;
-}
+/* .icons {
+	width: 15px;
+	height: 15px;
+} */
 
 #btnDelete:hover { background-color: #9c2525; }
 #btnShare:hover { background-color: #1f8730; }
