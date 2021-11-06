@@ -1,6 +1,7 @@
 from app import BD
 from flask import render_template, request, redirect, session
 import functions
+from ..database import users, links
 
 def create_link():
     user = session.get('userID')
@@ -15,24 +16,13 @@ def create_link():
     )
 
 def get_liks():
-    user = session.get('userID')
+    nick = session.get('userID')
     passwd = session.get('userpasswd')
-    if user == None or user == 'None': return redirect('/login')
-    request_db = BD.request(user, passwd)
-    if request_db == False:
-        return render_template(
-            'error.html',
-            erro = 'Senha inválida!',
-            url = '/login',
-            action = 'Voltar',
-            dar = functions.dar()
-        )
+    user = users.log_in(nick, passwd)
+    if not user: return redirect('/')
+    link = links.get_links(user[0])
     return render_template(
         'index.html',
-        dar = functions.dar(), 
-        nome = request_db[0],
-        link = request_db[1],
-        ids = request_db[2],
-        tam = len(request_db[0]),
-        user = user
+        dar = functions.dar(),
+        user = user[1]
     )

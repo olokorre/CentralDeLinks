@@ -1,6 +1,7 @@
 from app import app, BD
 from flask import render_template, request, redirect, make_response, session
 import hashlib, functions
+from ..database import users
 
 def log_out():
     resp = make_response(render_template('login.html', dar = functions.dar()))
@@ -24,10 +25,13 @@ def create_user():
 def log_in():
     nick = request.form['user']
     passwd = hashlib.md5(request.form['senha'].encode())
-    if BD.user_check(nick, passwd.hexdigest()):
-        resp = make_response(redirect('/'))
-        session['userID'] = nick
-        session['userpasswd'] = passwd.hexdigest()
+    user = users.log_in(nick, passwd.hexdigest())
+    if user:
+        resp = make_response({
+            "message": "nice"
+        }, 200)
+        session['userID'] = user[1]
+        session['userpasswd'] = user[2]
         return resp
     else:
         return {

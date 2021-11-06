@@ -26,13 +26,6 @@
 
 {% block scripts %}
 <script>
-    const characterInString = (character, string) => {
-        let control = false;
-        for (index in string) {
-            if (string.charAt(index) == character) control = true;
-        }
-        return control;
-    }
 
     $('#submit').on('click', () => {
         const user = $('#user');

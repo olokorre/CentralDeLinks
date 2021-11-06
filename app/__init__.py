@@ -8,3 +8,4 @@ BD = db.BancoDeDados(config('USER_DB'), config('PASSWD_DB'))
 
 from .routes import aux, index, users, links
 from .controllers import users, index, links
+from .database import users, links

@@ -2,3 +2,4 @@ user.txt
 __pycache__/
 .env
 .vscode/
+*.pcy

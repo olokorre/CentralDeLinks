@@ -54,3 +54,11 @@ function save_bio(user) {
 		}
 	});
 }
+
+const characterInString = (character, string) => {
+	let control = false;
+	for (index in string) {
+		if (string.charAt(index) == character) control = true;
+	}
+	return control;
+}
