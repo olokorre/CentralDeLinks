@@ -19,7 +19,7 @@ def get_liks():
     nick = session.get('userID')
     passwd = session.get('userpasswd')
     user = users.log_in(nick, passwd)
-    if not user: return redirect('/')
+    if not user: return redirect('/login')
     link = links.get_links(user[0])
     return render_template(
         'index.html',

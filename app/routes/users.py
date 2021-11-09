@@ -17,3 +17,7 @@ def create():
 def prifile(user):
 	if request.method == 'GET': return users.get_profile(user)
 	return users.save_bio()
+
+@app.route('/profile')
+def get_select_data():
+	return users.get_select_data()

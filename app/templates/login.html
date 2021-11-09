@@ -23,6 +23,10 @@
 
 {% block scripts %}
 <script>
+    $('#senha, #user').keyup(function(e){
+        if(e.keyCode == 13) $("#submit").click();
+    });
+
     $("#submit").on('click', () => {
         const user = $('#user');
         const senha = $('#senha');
@@ -41,11 +45,9 @@
                     senha: senha.val()
                 },
                 success: (result) => {
-                    console.log(result)
                     window.location.href = "/";
                 },
                 error: (result) => {
-                    console.log(result);
                     Swal.fire({
                         title: "Falha no login...",
                         text: result.responseJSON.message,

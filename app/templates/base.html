@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <link rel="shortcut icon" href="/image/Atendimento.png" type="image/x-icon">
-        <link rel = "stylesheet" type = "text/css" href = "/css/style.css" />
-        <link rel = "stylesheet" type = "text/css" href = "/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src = "/js/jquery-3.4.1.js"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -39,7 +39,6 @@
                 background: '#303030',
                 denyButtonText: "Sair",
             }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     window.location.href='/profile/{{user}}';
                 } else if (result.isDenied) {

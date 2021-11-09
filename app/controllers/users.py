@@ -12,12 +12,15 @@ def log_out():
 def create_user():
     nick = request.form['user']
     passwd = hashlib.md5(request.form['senha'].encode())
-    if BD.create_user(nick, passwd.hexdigest()):
-        resp = make_response(redirect('/'))
-        session['userID'] = nick
-        session['userpasswd'] = passwd.hexdigest()
+    try:
+        user = users.create_user(nick, passwd.hexdigest())
+        resp = make_response({
+            "message": "ok"
+        }, 201)
+        session['userID'] = user[1]
+        session['userpasswd'] = user[2]
         return resp
-    else: 
+    except: 
         return {
             "message": "Usuário já existe..."
         }, 400
@@ -39,24 +42,15 @@ def log_in():
         }, 400
 
 def get_profile(view_user):
-    user = session['userID']
-    passwd = session['userpasswd']
-    if user == None or user == 'None': return redirect('/login')
-    request_db = BD.request(user, passwd)
-    if request_db == False:
-        return render_template(
-            'error.html',
-            erro = 'Senha inválida!',
-            url = '/login',
-            action = 'Voltar',
-            dar = functions.dar()
-        )
+    user = users.get_user(session.get('userID'))
+    view_user = users.get_user(view_user)
+    if not user: return redirect('/login')
     return render_template(
         'profile.html',
         dar = functions.dar(),
-        user = user,
-        user_profile = view_user,
-        bio_user = BD.get_profile(view_user)
+        user = user[1],
+        user_profile = view_user[1],
+        bio_user = view_user[3]
     )
 
 def save_bio():
@@ -65,3 +59,9 @@ def save_bio():
     if user == None or user == 'None': return redirect('/login')
     BD.save_bio(request.form['bio'], user)
     return { "messange": "ok" }
+
+def get_select_data():
+    result = [ i[0] for i in users.search(request.args.get('term'))]
+    return {
+        "items": result
+    }

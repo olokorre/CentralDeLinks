@@ -28,11 +28,13 @@
 
 {% block scripts %}
 <script>
-	function delete_link(id) {
-		//
-	}
 
 	$(document).ready(() => {
+
+		$('#nome, #link').keyup(function(e){
+			if(e.keyCode == 13) $("#save_link").click();
+		});
+
 		const createTable = (links) => {
 			for (link_data of links) {
 				const line = $('<tr id="links_table"></tr>');
@@ -83,7 +85,7 @@
 				buttonCompartilhar.on('click', () => {
 					Swal.fire({
 						title: 'Compartilhar link',
-						html: '<p>Informe o nome do usuário</p><input required id="destinatario" />',
+						html: '<p>Informe o nome do usuário</p>',
 						background: '#303030',
 						confirmButtonText: 'Enviar',
 					}).then((result) => {

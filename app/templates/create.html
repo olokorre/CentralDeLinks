@@ -26,6 +26,9 @@
 
 {% block scripts %}
 <script>
+    $('#senha, #user, #reSenha').keyup((e) => {
+        if(e.keyCode == 13) $("#submit").click();
+    });
 
     $('#submit').on('click', () => {
         const user = $('#user');
