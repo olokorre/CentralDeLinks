@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, request
 from ..controllers import users
-import functions
+import helper
 
 @app.route('/login', methods = ('GET', 'POST'))
 def login():
@@ -10,7 +10,7 @@ def login():
 
 @app.route('/create', methods = ('GET', 'POST'))
 def create():
-	if request.method == 'GET': return render_template('create.html', dar = functions.dar())
+	if request.method == 'GET': return render_template('create.html', dar = helper.dar())
 	elif request.method == 'POST': return users.create_user()
 
 @app.route('/profile/<user>', methods = ('GET', 'POST'))
