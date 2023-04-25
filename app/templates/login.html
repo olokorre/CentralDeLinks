@@ -30,7 +30,6 @@
     $("#submit").on('click', () => {
         const user = $('#user');
         const senha = $('#senha');
-
         if (user.val() && senha.val()) {
             Swal.fire({
                 title: "Aguarde...",
@@ -38,14 +37,15 @@
             });
             Swal.showLoading();
             $.ajax({
-                url: "/login",
-                type: "POST",
-                data: {
-                    user: user.val(),
-                    senha: senha.val()
-                },
+                url: `${baseURL}auth/login`,
+                method: 'POST',
+                data: format({
+                    nick: user.val(),
+                    password: senha.val()
+                }),
                 success: (result) => {
-                    window.location.href = "/";
+                    localStorage.setItem('authorization', result.accessToken);
+                    window.location.href = '/';
                 },
                 error: (result) => {
                     Swal.fire({

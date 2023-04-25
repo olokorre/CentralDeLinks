@@ -9,16 +9,18 @@
         <script src = "/js/jquery-3.4.1.js"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         {% block header %}{% endblock %}
+        <script>
+            const baseURL = 'http://192.168.0.106:5001/';
+            $.ajaxSetup({
+                dataType: 'json',
+                contentType: 'application/json',
+            });
+            const format = data => JSON.stringify(data);
+        </script>
         <title>{% block title %}{% endblock %} | Central de Links</title>
     </head>
     <body>
         <div id = "barra">
-            {% if user %}
-            <span id="user_button">
-                <i class="fa fa-user-o" aria-hidden="true"></i>
-                {{user}}
-            </span>
-            {% endif %}
             <span id="titulo">
                 <b>Central de links, {{dar}}</b>
             </span>
@@ -28,23 +30,7 @@
     </body>
     <script>
         $('#titulo').on('click', () => {
-            window.location.href='/';
-        });
-
-        $('#user_button').on('click', () => {
-            Swal.fire({
-                title: "Bem vindo, {{user}}!",
-                showDenyButton: true,
-                confirmButtonText: 'Perfil',
-                background: '#303030',
-                denyButtonText: "Sair",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href='/profile/{{user}}';
-                } else if (result.isDenied) {
-                    window.location.href='/login';
-                }
-            });
+            window.location.href='/login';
         });
     </script>
     

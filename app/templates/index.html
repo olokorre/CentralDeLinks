@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'internal-base.html' %}
 
 {% block header %}
 	<script src = "js/script.js"></script>
@@ -36,11 +36,11 @@
 		});
 
 		const createTable = (links) => {
-			for (link_data of links) {
+			for (link of links) {
 				const line = $('<tr id="links_table"></tr>');
-				const name = $('<td title="'+ link_data[2] +'">'+ link_data[1] +'</td>');
+				const name = $('<td title="'+ link.url +'">'+ link.description +'</td>');
 				name.on('click', () => {
-					window.open(link_data[2], '_blank');
+					window.open(link.url, '_blank');
 				});
 				const buttonDeletar = $('<button id="btnDelete" title="Deletar..." ><i class="fa fa-trash" aria-hidden="true"></i></button>');
 				buttonDeletar.on('click', () => {
@@ -57,9 +57,13 @@
 					}).then((result) => {
 						if (result.isConfirmed) {
 							Swal.showLoading();
+							console.log(link.id);
 							$.ajax({
-								url: '/links/' + link_data[0],
-								type: 'DELETE',
+								url: `${baseURL}links/delete`,
+								method: 'delete',
+								data: format({
+									linkId: link.id
+								}),
 								success: () => {
 									Swal.fire({
 										title: 'Deletado',
@@ -92,7 +96,7 @@
 						if ($('#destinatario').val()) {
 							Swal.showLoading();
 							$.ajax({
-								url: '/share/' + link_data[0],
+								url: '/share/',
 								type: 'POST',
 								data: {
 									'destinatario': $('#destinatario').val(),
@@ -130,8 +134,8 @@
 
 		const getLinks = () => {
 			$.ajax({
-				url: '/links',
-				type: 'GET',
+				url: `${baseURL}links/get`,
+				type: 'get',
 				success: (response) => {
 					$('#table_links').html('<tr style="background-color: #191919; color: white;""><th>Nome</th><th>Operações</th></tr>');
 					createTable(response.links);
@@ -147,7 +151,6 @@
 		$('#save_link').on('click', () => {
 			const nome = $('#nome');
 			const link = $('#link');
-
 			if (nome.val() && link.val()) {
 				Swal.fire({
 					title: "Aguarde...",
@@ -162,12 +165,12 @@
 				});
 				else {
 					$.ajax({
-						url: '/links',
-						type: 'POST',
-						data: {
-							nome: nome.val(),
-							link: link.val()
-						},
+						url: `${baseURL}links/add`,
+						type: 'post',
+						data: format({
+							description: nome.val(),
+							url: link.val()
+						}),
 						success: (result) => {
 							Swal.fire({
 								title: "Nice!",
