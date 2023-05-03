@@ -1,29 +1,29 @@
 {% extends 'internal-base.html' %}
 
 {% block header %}
-	<script src = "js/script.js"></script>
-	<script src = "js/links.js"></script>
+<script src="js/script.js"></script>
+<script src="js/links.js"></script>
 {% endblock %}
 
 {% block title %} Home {% endblock %}
 
 {% block content %}
-	<div align = "center">
-		<div style = "display: none;" class = "mostrar">
-			<img id="show_links" class="menu" src="image/cacorro.jpeg" />
-			<img class="menu" onclick="AddLinks()" src="image/envia.jpg" />
-			<div class="tabela" style="display: none;">
-				<table id="table_links"></table>
-			</div>
-			<div id = "import" style = "display: none;">
-				<h2 style="color: white;">Informe o link aqui: </h2>
-				<input class="inputs" required placeholder="Nome" id="nome" />
-				<input class="inputs" required placeholder="Link" id="link" /> <br />
-				<button id="save_link" type="submit" style="margin-top: 30px;">Salvar</button>
-			</div>
+<div align="center">
+	<div style="display: none;" class="mostrar">
+		<img id="show_links" class="menu" src="image/cacorro.jpeg" />
+		<img class="menu" onclick="AddLinks()" src="image/envia.jpg" />
+		<div class="tabela" style="display: none;">
+			<table id="table_links"></table>
 		</div>
-		<button style = "display: none; margin-top: 30px;" id = "Voltar" onclick = "Voltar()">Voltar</button>
+		<div id="import" style="display: none;">
+			<h2 style="color: white;">Informe o link aqui: </h2>
+			<input class="inputs" required placeholder="Nome" id="nome" />
+			<input class="inputs" required placeholder="Link" id="link" /> <br />
+			<button id="save_link" type="submit" style="margin-top: 30px;">Salvar</button>
+		</div>
 	</div>
+	<button style="display: none; margin-top: 30px;" id="Voltar" onclick="Voltar()">Voltar</button>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -31,14 +31,16 @@
 
 	$(document).ready(() => {
 
-		$('#nome, #link').keyup(function(e){
-			if(e.keyCode == 13) $("#save_link").click();
+		$('#nome, #link').keyup(function (e) {
+			if (e.keyCode == 13) $("#save_link").click();
 		});
 
 		const createTable = (links) => {
+			$('#table_links').html('<span>Nada aqui... :(</span>');
+			if (links.length) $('#table_links').html('<tr style="background-color: #191919; color: white;""><th>Nome</th><th>Operações</th></tr>');
 			for (link of links) {
 				const line = $('<tr id="links_table"></tr>');
-				const name = $('<td title="'+ link.url +'">'+ link.description +'</td>');
+				const name = $('<td title="' + link.url + '">' + link.description + '</td>');
 				name.on('click', () => {
 					window.open(link.url, '_blank');
 				});
@@ -127,7 +129,7 @@
 				operations.append(buttonDeletar);
 				line.append(name);
 				line.append(operations);
-				
+
 				$('#table_links').append(line);
 			}
 		}
@@ -137,13 +139,12 @@
 				url: `${baseURL}links/get`,
 				type: 'get',
 				success: (response) => {
-					$('#table_links').html('<tr style="background-color: #191919; color: white;""><th>Nome</th><th>Operações</th></tr>');
 					createTable(response.links);
 				}
 			});
 		}
 
-		$('#show_links').on('click', () =>{
+		$('#show_links').on('click', () => {
 			getLinks();
 			MostrarLinks();
 		});
