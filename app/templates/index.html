@@ -87,49 +87,49 @@
 						}
 					});
 				});
-				const buttonCompartilhar = $('<button id="btnShare" title="Compartilhar"><i class="fa fa-share-alt" aria-hidden="true"></i></button>');
-				buttonCompartilhar.on('click', () => {
+				const buttonEditarDescricao = $('<button id="btnEdit" title="Editar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>');
+				buttonEditarDescricao.on('click', () => {
 					Swal.fire({
-						title: 'Compartilhar link',
-						html: '<p>Informe o nome do usuário</p>',
+						title: 'Editar descrição do link',
+						html: '<p>Informe a nova descrição</p><br><input name="description" id="description">',
 						background: '#303030',
-						confirmButtonText: 'Enviar',
+						confirmButtonText: 'Atualizar',
 					}).then((result) => {
-						if ($('#destinatario').val()) {
-							Swal.showLoading();
-							$.ajax({
-								url: '/share/',
-								type: 'POST',
-								data: {
-									'destinatario': $('#destinatario').val(),
-								},
-								success: (result) => {
-									Swal.fire({
-										title: 'Enviado',
-										text: result.messange,
-										icon: 'success',
-										background: '#303030',
-									})
-								},
-								error: (result) => {
-									console.log(result);
-									Swal.fire({
-										title: 'Algo deu errado :(',
-										text: result.responseJSON.messange,
-										icon: 'error',
-										background: '#303030',
-									});
-								}
-							});
-						}
+						if (!$('#description').val()) return;
+						Swal.showLoading();
+						$.ajax({
+							url: baseURL + 'links/change-description',
+							type: 'put',
+							data: format({
+								linkId: link.id,
+								description: $('#description').val(),
+							}),
+							success: (result) => {
+								Swal.fire({
+									title: 'Sucesso',
+									text: 'Descrição atualizada com sucesso',
+									icon: 'success',
+									background: '#303030',
+								});
+								getLinks();
+							},
+							error: (result) => {
+								console.log(result);
+								Swal.fire({
+									title: 'Algo deu errado :(',
+									text: result.responseJSON.messange,
+									icon: 'error',
+									background: '#303030',
+								});
+							}
+						});
 					});
 				});
 				const operations = $('<td nowrap></td>');
-				operations.append(buttonCompartilhar);
+				operations.append(buttonEditarDescricao);
 				operations.append(buttonDeletar);
 				line.append(name);
 				line.append(operations);
-
 				$('#table_links').append(line);
 			}
 		}
