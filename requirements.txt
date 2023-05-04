@@ -34,6 +34,6 @@ ssh-import-id==5.11
 ubuntu-advantage-tools==8001
 ufw==0.36.1
 urllib3==1.26.5
-Werkzeug==2.2.2
+Werkzeug==2.2.3
 youtube-dl==2021.12.17
 zipp==1.0.0
