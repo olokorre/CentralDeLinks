@@ -22,6 +22,8 @@ function AddLinks() { // executa animação do adicionar os links
 }
 
 function Voltar() { // executa a animação de voltar a pagina inicial
+	$('#nome').val('');
+	$('#link').val('');
 	$("td").removeClass("transicao");
 	$(".tabela").fadeOut("slow");
 	$("#import").fadeOut("slow");

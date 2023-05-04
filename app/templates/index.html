@@ -1,29 +1,29 @@
-{% extends 'base.html' %}
+{% extends 'internal-base.html' %}
 
 {% block header %}
-	<script src = "js/script.js"></script>
-	<script src = "js/links.js"></script>
+<script src="js/script.js"></script>
+<script src="js/links.js"></script>
 {% endblock %}
 
 {% block title %} Home {% endblock %}
 
 {% block content %}
-	<div align = "center">
-		<div style = "display: none;" class = "mostrar">
-			<img id="show_links" class="menu" src="image/cacorro.jpeg" />
-			<img class="menu" onclick="AddLinks()" src="image/envia.jpg" />
-			<div class="tabela" style="display: none;">
-				<table id="table_links"></table>
-			</div>
-			<div id = "import" style = "display: none;">
-				<h2 style="color: white;">Informe o link aqui: </h2>
-				<input class="inputs" required placeholder="Nome" id="nome" />
-				<input class="inputs" required placeholder="Link" id="link" /> <br />
-				<button id="save_link" type="submit" style="margin-top: 30px;">Salvar</button>
-			</div>
+<div align="center">
+	<div style="display: none;" class="mostrar">
+		<img id="show_links" class="menu" src="image/cacorro.jpeg" />
+		<img class="menu" onclick="AddLinks()" src="image/envia.jpg" />
+		<div class="tabela" style="display: none;">
+			<table id="table_links"></table>
 		</div>
-		<button style = "display: none; margin-top: 30px;" id = "Voltar" onclick = "Voltar()">Voltar</button>
+		<div id="import" style="display: none;">
+			<h2 style="color: white;">Informe o link aqui: </h2>
+			<input class="inputs" required placeholder="Nome" id="nome" />
+			<input class="inputs" required placeholder="Link" id="link" /> <br />
+			<button id="save_link" type="submit" style="margin-top: 30px;">Salvar</button>
+		</div>
 	</div>
+	<button style="display: none; margin-top: 30px;" id="Voltar" onclick="Voltar()">Voltar</button>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -31,16 +31,18 @@
 
 	$(document).ready(() => {
 
-		$('#nome, #link').keyup(function(e){
-			if(e.keyCode == 13) $("#save_link").click();
+		$('#nome, #link').keyup(function (e) {
+			if (e.keyCode == 13) $("#save_link").click();
 		});
 
 		const createTable = (links) => {
-			for (link_data of links) {
+			$('#table_links').html('<span>Nada aqui... :(</span>');
+			if (links.length) $('#table_links').html('<tr style="background-color: #191919; color: white;""><th>Nome</th><th>Operações</th></tr>');
+			for (link of links) {
 				const line = $('<tr id="links_table"></tr>');
-				const name = $('<td title="'+ link_data[2] +'">'+ link_data[1] +'</td>');
+				const name = $('<td title="' + link.url + '">' + link.description + '</td>');
 				name.on('click', () => {
-					window.open(link_data[2], '_blank');
+					window.open(link.url, '_blank');
 				});
 				const buttonDeletar = $('<button id="btnDelete" title="Deletar..." ><i class="fa fa-trash" aria-hidden="true"></i></button>');
 				buttonDeletar.on('click', () => {
@@ -57,9 +59,13 @@
 					}).then((result) => {
 						if (result.isConfirmed) {
 							Swal.showLoading();
+							console.log(link.id);
 							$.ajax({
-								url: '/links/' + link_data[0],
-								type: 'DELETE',
+								url: `${baseURL}links/delete`,
+								method: 'delete',
+								data: format({
+									linkId: link.id
+								}),
 								success: () => {
 									Swal.fire({
 										title: 'Deletado',
@@ -81,65 +87,64 @@
 						}
 					});
 				});
-				const buttonCompartilhar = $('<button id="btnShare" title="Compartilhar"><i class="fa fa-share-alt" aria-hidden="true"></i></button>');
-				buttonCompartilhar.on('click', () => {
+				const buttonEditarDescricao = $('<button id="btnEdit" title="Editar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>');
+				buttonEditarDescricao.on('click', () => {
 					Swal.fire({
-						title: 'Compartilhar link',
-						html: '<p>Informe o nome do usuário</p>',
+						title: 'Editar descrição do link',
+						html: '<p>Informe a nova descrição</p><br><input name="description" id="description">',
 						background: '#303030',
-						confirmButtonText: 'Enviar',
+						confirmButtonText: 'Atualizar',
 					}).then((result) => {
-						if ($('#destinatario').val()) {
-							Swal.showLoading();
-							$.ajax({
-								url: '/share/' + link_data[0],
-								type: 'POST',
-								data: {
-									'destinatario': $('#destinatario').val(),
-								},
-								success: (result) => {
-									Swal.fire({
-										title: 'Enviado',
-										text: result.messange,
-										icon: 'success',
-										background: '#303030',
-									})
-								},
-								error: (result) => {
-									console.log(result);
-									Swal.fire({
-										title: 'Algo deu errado :(',
-										text: result.responseJSON.messange,
-										icon: 'error',
-										background: '#303030',
-									});
-								}
-							});
-						}
+						if (!$('#description').val()) return;
+						Swal.showLoading();
+						$.ajax({
+							url: baseURL + 'links/change-description',
+							type: 'put',
+							data: format({
+								linkId: link.id,
+								description: $('#description').val(),
+							}),
+							success: (result) => {
+								Swal.fire({
+									title: 'Sucesso',
+									text: 'Descrição atualizada com sucesso',
+									icon: 'success',
+									background: '#303030',
+								});
+								getLinks();
+							},
+							error: (result) => {
+								console.log(result);
+								Swal.fire({
+									title: 'Algo deu errado :(',
+									text: result.responseJSON.messange,
+									icon: 'error',
+									background: '#303030',
+								});
+							}
+						});
 					});
 				});
 				const operations = $('<td nowrap></td>');
-				operations.append(buttonCompartilhar);
+				operations.append(buttonEditarDescricao);
 				operations.append(buttonDeletar);
 				line.append(name);
 				line.append(operations);
-				
 				$('#table_links').append(line);
 			}
 		}
 
 		const getLinks = () => {
 			$.ajax({
-				url: '/links',
-				type: 'GET',
+				url: `${baseURL}links/get`,
+				type: 'get',
 				success: (response) => {
-					$('#table_links').html('<tr style="background-color: #191919; color: white;""><th>Nome</th><th>Operações</th></tr>');
 					createTable(response.links);
 				}
 			});
 		}
 
-		$('#show_links').on('click', () =>{
+		$('#show_links').on('click', () => {
 			getLinks();
 			MostrarLinks();
 		});
@@ -147,7 +152,6 @@
 		$('#save_link').on('click', () => {
 			const nome = $('#nome');
 			const link = $('#link');
-
 			if (nome.val() && link.val()) {
 				Swal.fire({
 					title: "Aguarde...",
@@ -162,12 +166,12 @@
 				});
 				else {
 					$.ajax({
-						url: '/links',
-						type: 'POST',
-						data: {
-							nome: nome.val(),
-							link: link.val()
-						},
+						url: `${baseURL}links/add`,
+						type: 'post',
+						data: format({
+							description: nome.val(),
+							url: link.val()
+						}),
 						success: (result) => {
 							Swal.fire({
 								title: "Nice!",

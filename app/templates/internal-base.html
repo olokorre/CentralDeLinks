@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/image/Atendimento.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/jquery-3.4.1.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const baseURL = 'http://192.168.0.106:5001/';
+        $.ajaxSetup({
+            headers: {
+                'Access-Token': localStorage.getItem('authorization')
+            },
+            dataType: 'json',
+            contentType: 'application/json;charset=UTF-8',
+        });
+        const format = data => JSON.stringify(data);
+    </script>
+    {% block header %}{% endblock %}
+    <title>{% block title %}{% endblock %} | Central de Links</title>
+</head>
+
+<body>
+    <div id="barra">
+        {% if user %}
+        <span id="user_button">
+            <i class="fa fa-user-o" aria-hidden="true"></i>
+            <span class="nick-user"></span>
+        </span>
+        {% endif %}
+        <span id="titulo">
+            <b>Central de links, {{dar}}</b>
+        </span>
+    </div>
+
+    <div id="content">{% block content %}{% endblock %}</div>
+</body>
+<script>
+    let me = {};
+    $.ajax({
+        url: `${baseURL}auth/me`,
+        method: 'post',
+        success: function (user) {
+            me = user;
+            $('.nick-user').text(user.nick);
+        },
+        error: (result) => {
+            console.log(result);
+            window.location.href = '/login';
+        }
+    });
+
+    $('#titulo').on('click', () => {
+        window.location.href = '/';
+    });
+
+    $('#user_button').on('click', () => {
+        Swal.fire({
+            title: `Bem vindo, ${me.nick}!`,
+            showDenyButton: true,
+            confirmButtonText: 'Perfil',
+            background: '#303030',
+            denyButtonText: "Sair",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '/profile/{{user}}';
+            } else if (result.isDenied) {
+                localStorage.removeItem('authorization');
+                window.location.href = '/login';
+            }
+        });
+    });
+</script>
+{% block scripts %} {% endblock %}
+
+</html>
