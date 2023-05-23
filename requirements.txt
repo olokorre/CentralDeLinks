@@ -27,7 +27,7 @@ python-apt==2.4.0+ubuntu1
 python-decouple==3.4
 pyxattr==0.7.2
 PyYAML==5.4.1
-requests==2.25.1
+requests==2.31.0
 requests-toolbelt==0.9.1
 six==1.16.0
 ssh-import-id==5.11
