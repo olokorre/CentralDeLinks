@@ -33,7 +33,7 @@ six==1.16.0
 ssh-import-id==5.11
 ubuntu-advantage-tools==8001
 ufw==0.36.1
-urllib3==1.26.5
+urllib3==1.26.17
 Werkzeug==2.2.3
 youtube-dl==2021.12.17
 zipp==1.0.0
